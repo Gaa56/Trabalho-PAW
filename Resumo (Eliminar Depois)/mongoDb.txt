@@ -1,0 +1,21 @@
+---- COMO ESTA CONECTADO AO MONGO DB ----
+
+A ligação entre a nossa aplicação  e a base de dados  é feita através de três peças principais que trabalham juntas, as Variáveis de Ambiente (.env), a Configuração de ligação (config/mongodb.js) e o Ponto de Entrada da app (app.js).
+
+Aqui está a explicação detalhada do que cada um faz:
+
+1. O FICHEIRO ".env" (Variáveis de Ambiente)
+O ficheiro `.env` guarda informações secretas ou variáveis globais que não queremos que fiquem visíveis diretamente no código-fonte por motivos de segurança..
+- O que lá está: Uma variável chamada `MONGO_URI` com o "Link de Ligação" secreto que nos dá acesso à nossa base de dados alojada na cloud (MongoDB Atlas) com o utilizador e password da base de dados.
+
+2. A PASTA "config" -> "mongodb.js"
+Foi criada uma pasta `config` com um ficheiro `mongodb.js` cujo único propósito é tratar da ligação propriamente dita à base de dados.
+- O que lá está: 
+  Importa o `mongoose`, que é a ferramenta que faz a ponte com o MongoDB.
+  Cria uma função `connectDB` que tenta  conectar ao MongoDB usando a variável secreta que definimos: `mongoose.connect(process.env.MONGO_URI)`. Se correr bem, mostra "MongoDB Ligado" na consola. Se der erro (`catch`), avisa o erro e desliga a aplicação (`process.exit(1)`).
+
+3. O FICHEIRO "app.js" (Ligar os Fios)
+- O que foi adicionado lá:
+  - `require('dotenv').config();` (Lá no topo): Isto é a primeira coisa a correr, Lê o ficheiro `.env` e carrega a `MONGO_URI` para a memória da aplicação para poder ser usada.
+  - `const connectDB = require('./config/mongodb');` e `connectDB();`: Aqui importamos a função de ligação que criámos na pasta config e executamo-la. É neste exato momento que a aplicação acorda e se liga à base de dados.
+  - Adicionou-se também configurações na "Session" (`app.use(session(...))`) com `MongoStore.create({ mongoUrl: process.env.MONGO_URI })`, o que faz com que, além da app estar ligada à BD principal, as sessões/logins dos utilizadores também passem a ser guardadas em segurança no MongoDB automaticamente.
