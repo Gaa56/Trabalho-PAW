@@ -1,1 +1,23 @@
 ---- RESUMO DA CONSTRUÇÃO DA PÁGINA DE LOGIN ----
+
+1. ===== RESET ===== 
+
+1.1 O simbolo '*' refere-se a todos os elementos da pagina, o ::before e ::after referem-se a elementos que são criados dinamicamente 
+-Isto serve para nao ficar umas colunas desiguais
+
+1.2 Estrutura inicial da pagina: Vamos defenir a fonte da letra,uma core de fundo branca e esteticas iniciais.
+NOTAS:
+-Usamos tambem o "overflow:hidden" para não haver scroll
+
+1.3 Layout
+Definimos que a pagina vai ocupar todo o ecra
+NOTA:
+-O "display:flex" serve para alinhar todos os elementos na pagina, vai meter os elementos todos na horizontal direitinho, enquanto 
+diferentes tipos de display como o inline iria meter os elementos um em cima do outro
+-Usamos o "align-items: center" e o "justify-content: center" para centralizar horizontalmente e verticalmente os elementos que metermos nesta coluna
+
+1.4 Coluna esquerda
+
+
+
+
