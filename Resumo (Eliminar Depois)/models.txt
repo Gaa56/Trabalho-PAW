@@ -3,7 +3,6 @@
 A pasta `models` é onde definimos a estrutura, as regras e o formato dos dados que vão ser guardados na base de dados (MongoDB).
 
 
-
 Aqui está a explicação de como isto tudo funciona e está dividido:
 
 1. O que é um "Molde" (Schema)?
@@ -15,11 +14,5 @@ Cada ficheiro dentro da pasta models (ex: User.js, Product.js, Supermarket.js) c
 
 2. O que é o "Modelo" (Model)?
 No final de cada ficheiro de molde, há sempre uma linha que formaliza todo este processo:
-`module.exports = mongoose.model('Product', productSchema);`
-Isto pega no molde que criámos em cima (`productSchema`) e transforma-o de facto num Modelo oficial chamado `'Product'`.
-
-Como curiosidade da organização do MongoDB: quando dás o nome do modelo no Singular (ex: `User`, `Product`, `Supermarket`), o Mongoose converte de forma inteligente todas essas palavras para o Plural e em inglês e cria as coleções verdadeiras lá dentro com esses nomes (`users`, `products`, `supermarkets`).
-
-3. Relações entre Coleções
-Os modelos também ditam como as tabelas da base de dados (coleções) interagem entre si, recorrendo a Referências. 
-Por exemplo, um Produto pertence sempre a um Supermercado e a uma Categoria. Em vez de guardarmos toda a informação do supermercado dentro do ficheiro da maçã, no modelo do `Product.js` guardamos unicamente o "ID" desse mesmo supermercado, avisando o código que o "ref" (referência) de leitura será o `'Supermarket'`. Isto mantém as coleções leves, organizadas e não repetitivas.
+`module.exports = mongoose.model('Product', productSchema)
+Isto pega no molde  e transforma-o de facto num Modelo
