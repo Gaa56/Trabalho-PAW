@@ -1,4 +1,4 @@
----- RESUMO DA CONSTRUÇÃO DA PÁGINA DE LOGIN ----
+---- RESUMO DO CSS DA PÁGINA DE LOGIN ----
 _________________________________________________________________________________________________________________________________________________
 --1. RESET
 1.1 O simbolo '*' refere-se a todos os elementos da pagina, o ::before e ::after referem-se a elementos que são criados dinamicamente 
@@ -31,8 +31,24 @@ Foi criada uma coluna a direita que vai ocupar 58% do ecra, com uma cor branca, 
 -E para uma transição futura, foi definido um delay de 3 segundos para quando passar o rato por cima
 
 4.2 Transição do butão ao passar o rato por cima (.create-account-link:hover)
--O elemento :hover que foi acrescentado na pseudo é que vai fazer com que o butão mude quando o rato passa por cima
+-O elemento :hover que foi acrescentado na classe é que vai fazer com que o butão mude quando o rato passa por cima
 -A cor da borda vai mudar para azul escuro, a cor do butão vai mudar para azul escuro, a cor do texto vai mudar para branco, vai ter uma sombra e vai subir um bocado
 _________________________________________________________________________________________________________________________________________________
 --5 Mensagem de Erro
+A mensagem de erro sera vermelha e tera um tamanho de 0.85rem        
+_________________________________________________________________________________________________________________________________________________
+--6 Inputs
+Personalização das caixas de texto para o utilizador meter o email e password
+6.1  ( .form-group label) - O texto encima das caixas de texto por exemplo "Email" e "Password"
+6.2  ( .form-group input) - A caixa de texto em si
+6.3  ( .form-group input::placeholder) - O texto que aparece dentro da caixa de texto antes do utilizador escrever (exemplo@email.com)
+6.4 ( .form-group input:focus) - A caixa de texto vai ficar azul escura quando o utilizador clicar nela
+_________________________________________________________________________________________________________________________________________________
+--7 Password
+Personalização do butão de mostrar/esconder a password
+7.1 ( .password-wrapper input) - Com padding-right: 4.2rem; vai fazer com que o texto da password não ultrapasse o butão
+7.2 ( .toggle-password) - O butão de mostrar/esconder a password, vai ficar no canto  direito centralizado da caixa de texto com o "top: 50%;" e "transform: translateY(-50%);"
+o "top:50%" vai meter o butão a 50% da altura da caixa de texto e o "transform: translateY(-50%);" vai fazer com que o butão fique centralizado verticalmente, o "right: 0.85rem;" 
+vai fazer com que o butão fique a 0.85rem do fim da caixa de texto, por fim, o  "cursor: pointer;" vai fazer com que o butão fique com o cursor de mãozinha quando o rato passar por cima para o 
+utilizador saber que pode clicar
 
