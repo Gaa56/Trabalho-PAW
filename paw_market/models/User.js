@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema({
         required: [true, 'O telefone é obrigatório'],
         trim: true
     },
+    //NIF (Opcional)
+    nif: {
+        type: String,
+        trim: true
+    },
     //Morada
     address: {
         type: String,

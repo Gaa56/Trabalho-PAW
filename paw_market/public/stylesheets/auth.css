@@ -1,3 +1,4 @@
+/* ===== PAGINA 1 - LOGIN ===== */
 /* ===== RESET ===== */
 /* O simbolo '*' refere-se a todos os elementos da pagina, o ::before e ::after referem-se a elementos que são criados dinamicamente */
 /* Isto serve para nao ficar umas colunas desiguais */
@@ -181,7 +182,7 @@ body {
 }
 
 /* A caixa de texto em si */
-.form-group input {
+.form-group input, .form-group select {
     width: 100%;
     padding: 0.8rem 1rem;
     font-family: 'Inter', sans-serif;
@@ -206,7 +207,7 @@ body {
 /* Quando o utilizador clica na caixa de texto */
 /* O :focus é o elemento que faz com que a caixa de texto mude quando o utilizador clica nela */
 /* A borda da caixa de texto vai ficar azul escura quando o utilizador clicar nela */
-.form-group input:focus {
+.form-group input:focus, .form-group select:focus {
     border-color: #0f2545;
     box-shadow: 0 0 0 3px rgba(15, 37, 69, 0.1);
 }
@@ -275,4 +276,64 @@ body {
     transform: translateY(-2.5px);
     /* A sombra */
     box-shadow: 0 8px 25px rgba(15, 37, 69, 0.35);
+}
+
+/* ===== PAGINA 2 - REGISTO ===== */
+.register-container {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('/images/Register.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Registo */
+.register-card {
+    width: 100%;
+    max-width: 480px;
+    /* Um bocadinho mais largo para dar espaço para nomes duplos */
+    padding: 3.5rem 2.8rem;
+
+    /* background com gradient azul escuro */
+    background: linear-gradient(160deg, #0a1628 0%, #173866 100%);
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+
+    /* Um pequeno ajuste no topo para ficar centrado */
+    margin-top: 2rem;
+}
+
+/* Como o fundo é escuro na imagem, as etiquetas (Nome/Email/Password) têm de ser brancas/cinza claro */
+.register-card label {
+    color: #f3f4f6;
+}
+
+/* Titulo  */
+.register-card-title {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+
+/* Linha com duas colunas */
+.form-row {
+    display: flex;
+    gap: 1.2rem;
+    /* Anula as margens globais de baixo para as gerirmos nós */
+    margin-bottom: 1.4rem;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+    flex: 1;
+    /* Ocupa metade do espaço cada um */
 }
