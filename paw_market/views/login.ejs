@@ -67,13 +67,14 @@
         }
 
         /* Imagem do supermercado */
+        /* Vai ficar dentro da coluna da esquerda */
         .login-left-image {
             position: relative;
+
             z-index: 2;
             width: 95%;
             max-width: 820px;
             border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
             object-fit: cover;
         }
 
@@ -92,17 +93,29 @@
         /* Link de criar conta no canto superior direito */
         .create-account-link {
             position: absolute;
+            /* Fica a 2rem do topo e a 2.5rem da direita */
             top: 2rem;
             right: 2.5rem;
+            /* Remove o sublinhado do link */
             text-decoration: none;
+            /* Cor do link */
             color: #0f2545;
+            /* Tamanho da letra */
             font-size: 0.85rem;
+            /* "Peso" da letra */
             font-weight: 500;
+            /* Margem interna */
             padding: 0.55rem 1.3rem;
+            /* Borda */
             border: 1.5px solid #d0d5dd;
+            /* Cantos arredondados */
             border-radius: 8px;
+            /* Transição */
             transition: all 0.3s ease;
         }
+
+        /* Transição do butão ao passar o rato por cima */
+        /* O :hover é o elemento que faz com que o butão mude quando o rato passa por cima */
 
         .create-account-link:hover {
             border-color: #0f2545;
@@ -128,6 +141,7 @@
             letter-spacing: -2px;
         }
 
+        /* Subtitulo "Iniciar sessão" */
         .login-subtitle {
             font-size: 1rem;
             color: #6b7280;
@@ -136,24 +150,28 @@
         }
 
         /* ===== MENSAGEM DE ERRO ===== */
+        /* A caixa de texto */
         .error-message {
+            /* Cor de fundo */
             background-color: #fef2f2;
+            /* Tamanho e cor da Borda */
             border: 1px solid #fecaca;
+            /* Cantos arredondados */
             border-radius: 10px;
+            /* Margem interna */
             padding: 0.85rem 1.1rem;
+            /* Um espaço vazio para separar do as caixas de */
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
+            /* Um espaço vazio entre o texto e o icone */
             gap: 0.6rem;
         }
 
-        .error-message svg {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            color: #dc2626;
-        }
 
+
+        /* O texto */
+        /* O span é a etiqueta responsavel por meter o texto em linha */
         .error-message span {
             font-size: 0.85rem;
             color: #991b1b;
@@ -389,10 +407,7 @@
 
                 <% if (typeof error !=='undefined' && error) { %>
                     <div class="error-message" id="login-error">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                        </svg>
+
                         <span>
                             <%= error %>
                         </span>

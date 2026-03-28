@@ -1,23 +1,38 @@
 ---- RESUMO DA CONSTRUÇÃO DA PÁGINA DE LOGIN ----
-
-1. ===== RESET ===== 
-
+_________________________________________________________________________________________________________________________________________________
+--1. RESET
 1.1 O simbolo '*' refere-se a todos os elementos da pagina, o ::before e ::after referem-se a elementos que são criados dinamicamente 
 -Isto serve para nao ficar umas colunas desiguais
 
-1.2 Estrutura inicial da pagina: Vamos defenir a fonte da letra,uma core de fundo branca e esteticas iniciais.
+1.2 Estrutura inicial da pagina: Vamos defenir a fonte da letra,uma core de fundo branca e esteticas iniciais. (body)
 NOTAS:
 -Usamos tambem o "overflow:hidden" para não haver scroll
-
-1.3 Layout
+_________________________________________________________________________________________________________________________________________________
+--2. Layout (.login-container)
 Definimos que a pagina vai ocupar todo o ecra
 NOTA:
--O "display:flex" serve para alinhar todos os elementos na pagina, vai meter os elementos todos na horizontal direitinho, enquanto 
+-O "display:flex" serve para alinhar os elementos na pagina, vai meter os elementos todos na horizontal direitinho, enquanto 
 diferentes tipos de display como o inline iria meter os elementos um em cima do outro
 -Usamos o "align-items: center" e o "justify-content: center" para centralizar horizontalmente e verticalmente os elementos que metermos nesta coluna
+_________________________________________________________________________________________________________________________________________________
+--3 Coluna esquerda (.login-left)
+Foi criada uma coluna a esquerda que vai ocupar 42% do ecra, com uma cor de fundo azul escura, com uma margem interna de 3rem
+- Todos os elementos que forem metidos nesta coluna vai ficar centralisados - "align-items: center;"  "justify-content: center;"
+LTodos os elementos que metermos nesta coluna vao ser organizados em coluna, ou seja "um em cima do outro" - "flex-direction: column;"
+_________________________________________________________________________________________________________________________________________________
+--4 Coluna direita (.login-right)
+Foi criada uma coluna a direita que vai ocupar 58% do ecra, com uma cor branca, com uma margem interna de 3rem
 
-1.4 Coluna esquerda
+4.1 O butão "Create account" no conta superior direito (.create-account-link)
+-Foi criado para ficar a 2rem do topo e a 2.5rem da direita - "top: 2rem;" "right: 2.5rem;", 
+-Retirar o sublinhado - "text-decoration: none;"
+-Foi definido uma cor azul escuro, um tamanho de lentra e "grossura"
+-Uma borda de cor branca que vai ter cantos arrendondados (border-radius)
+-E para uma transição futura, foi definido um delay de 3 segundos para quando passar o rato por cima
 
-
-
+4.2 Transição do butão ao passar o rato por cima (.create-account-link:hover)
+-O elemento :hover que foi acrescentado na pseudo é que vai fazer com que o butão mude quando o rato passa por cima
+-A cor da borda vai mudar para azul escuro, a cor do butão vai mudar para azul escuro, a cor do texto vai mudar para branco, vai ter uma sombra e vai subir um bocado
+_________________________________________________________________________________________________________________________________________________
+--5 Mensagem de Erro
 
