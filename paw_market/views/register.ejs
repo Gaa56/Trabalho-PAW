@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registo - MercadoPAW Marketplace">
+    <title>Registo - MercadoPAW</title>
+
+    <!-- Stylesheet Global Partilhado -->
+    <link rel="stylesheet" href="/stylesheets/auth.css">
+</head>
+
+<body>
+    <!-- Container principal (Imagem Register.png de fundo) -->
+    <div class="register-container">
+
+
+        <div class="register-card">
+
+            <h1 class="register-card-title">Criar Conta</h1>
+
+
+            <!-- Mensagem de erro caso o registo falhe -->
+            <% if (typeof error !=='undefined' && error) { %>
+                <div class="error-message" id="login-error">
+                    <span>
+                        <%= error %>
+                    </span>
+                </div>
+                <% } %>
+
+                    <form action="/register" method="POST" id="register-form">
+
+                        <!-- 1. Linha Dupla: Primeiro Nome e Último Nome -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Primeiro Nome</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Ex: João" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName">Último Nome</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Ex: Silva" required>
+                            </div>
+                        </div>
+
+                        <!-- 2. Linha Única: Email -->
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+                        </div>
+
+                        <!-- 3. Linha Dupla: Telemóvel e NIF -->
+                        <div class="form-row">
+                            <!-- Telemovel -->
+                            <div class="form-group">
+                                <label for="phone">Telemóvel</label>
+                                <input type="tel" id="phone" name="phone" placeholder="912 345 678" required>
+                            </div>
+
+                            <!-- NIF e a tag (Opcional) cinzenta -->
+                            <div class="form-group">
+                                <label for="nif">NIF <span
+                                        style="font-size: 0.75rem; color: #9ca3af; font-weight: normal; margin-left: 0.2rem;">(Opcional)</span></label>
+                                <input type="number" id="nif" name="nif" placeholder="123456789">
+                            </div>
+                        </div>
+
+                        <!-- 4. Linha Única: Morada -->
+                        <div class="form-group" style="margin-bottom: 1.4rem;">
+                            <label for="address">Morada Completa</label>
+                            <input type="text" id="address" name="address" placeholder="Rua, Número da porta, Distrito"
+                                required>
+                        </div>
+
+                        <!-- 5. Linha Única: Tipo de Conta -->
+                        <div class="form-group" style="margin-bottom: 1.4rem;">
+                            <label for="role">Tipo de Conta</label>
+                            <select id="role" name="role" required>
+                                <option value="cliente" selected>Cliente</option>
+                                <option value="estafeta">Estafeta</option>
+                                <option value="supermercado">Supermercado</option>
+                            </select>
+                        </div>
+
+                        <!-- 5. Linha Única: Password -->
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" name="password" placeholder="Cria password forte"
+                                    required>
+                                <button type="button" class="toggle-password" id="toggle-password-btn"
+                                    onclick="togglePassword()">
+                                    <span id="eye-text">Mostrar</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Botão de submeter o registo -->
+                        <button type="submit" class="btn-signin" id="signin-btn" style="margin-top: 1.5rem;">
+                            Criar Conta
+                        </button>
+
+                        <!-- Botão de Voltar ao Login por baixo -->
+                        <div style="text-align: center; margin-top: 1.8rem;">
+                            <!-- Meti uma transição suave para branco quando o rato passa no link de baixo -->
+                            <a href="/login"
+                                style="color: #9ca3af; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;"
+                                onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#9ca3af'">
+                                Já tens conta? <strong>Iniciar sessão</strong>
+                            </a>
+                        </div>
+                    </form>
+        </div>
+    </div>
+
+    <!-- Script idêntico para a password -->
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeText = document.getElementById('eye-text');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeText.textContent = 'Ocultar';
+            } else {
+                passwordInput.type = 'password';
+                eyeText.textContent = 'Mostrar';
+            }
+        }
+    </script>
+</body>
+
+</html>

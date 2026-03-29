@@ -1,0 +1,339 @@
+/* ===== PAGINA 1 - LOGIN ===== */
+/* ===== RESET ===== */
+/* O simbolo '*' refere-se a todos os elementos da pagina, o ::before e ::after referem-se a elementos que são criados dinamicamente */
+/* Isto serve para nao ficar umas colunas desiguais */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Estrutura inicial da pagina */
+body {
+    /* Fonte */
+    font-family: 'Inter', sans-serif;
+    /* Cor de fundo padrão*/
+    background-color: #f8f9fc;
+    /* Impede que a pagina tenha scroll, vai cortar tudo que passar o limite de 100vh */
+    overflow: hidden;
+}
+
+/* ===== LAYOUT PRINCIPAL - Duas Colunas ===== */
+/* Ocupar todo o ecra */
+.login-container {
+    /* Alinhar todos os elementos */
+    display: flex;
+    /* Horizontal */
+    width: 100%;
+    /* Vertical */
+    min-height: 100vh;
+}
+
+/* ===== COLUNA ESQUERDA - Azul Escuro ===== */
+.login-left {
+    /* Ocupar 42% do ecra na horizontal */
+    width: 42%;
+    /* Cor de fundo */
+    background: linear-gradient(160deg, #0a1628 0%, #0f2545 40%, #132d52 70%, #0a1628 100%);
+    display: flex;
+
+    /* Todos os elementos que metermos nesta coluna vao ser organizados em coluna, ou seja "um em cima do outro"*/
+    flex-direction: column;
+
+
+    /* Centralizar horizontalmente e verticalmente elementos que metermos nesta coluna*/
+    align-items: center;
+    justify-content: center;
+
+
+    position: relative;
+    overflow: hidden;
+    /* Margem interna */
+    padding: 3rem;
+}
+
+/* Imagem do supermercado */
+/* Vai ficar dentro da coluna da esquerda */
+.login-left-image {
+    position: relative;
+
+    z-index: 2;
+    width: 95%;
+    max-width: 820px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+/* ===== COLUNA DIREITA - Formulário ===== */
+.login-right {
+    width: 58%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    position: relative;
+    background-color: #f8f9fc;
+}
+
+/* Link de criar conta no canto superior direito */
+.create-account-link {
+    position: absolute;
+    /* Fica a 2rem do topo e a 2.5rem da direita */
+    top: 2rem;
+    right: 2.5rem;
+    /* Remove o sublinhado do link */
+    text-decoration: none;
+    /* Cor do link */
+    color: #0f2545;
+    /* Tamanho da letra */
+    font-size: 0.85rem;
+    /* "Peso" da letra */
+    font-weight: 500;
+    /* Margem interna */
+    padding: 0.55rem 1.3rem;
+    /* Borda */
+    border: 1.5px solid #d0d5dd;
+    /* Cantos arredondados */
+    border-radius: 8px;
+    /* Transição */
+    transition: all 0.3s ease;
+}
+
+/* Transição do butão ao passar o rato por cima */
+/* O :hover é o elemento que faz com que o butão mude quando o rato passa por cima */
+
+.create-account-link:hover {
+    border-color: #0f2545;
+    background-color: #0f2545;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 37, 69, 0.2);
+}
+
+/* Caixa do formulário */
+.login-form-wrapper {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Titulo SuperMarket Hub */
+.login-title {
+    font-size: 7.2rem;
+    font-weight: 800;
+    color: #0a1628;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    letter-spacing: -2px;
+}
+
+/* Subtitulo "Iniciar sessão" */
+.login-subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+}
+
+/* ===== MENSAGEM DE ERRO ===== */
+/* A caixa de texto */
+.error-message {
+    /* Cor de fundo */
+    background-color: #fef2f2;
+    /* Tamanho e cor da Borda */
+    border: 1px solid #fecaca;
+    /* Cantos arredondados */
+    border-radius: 10px;
+    /* Margem interna */
+    padding: 0.85rem 1.1rem;
+    /* Um espaço vazio para separar do as caixas de */
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+
+}
+
+
+
+/* O texto */
+/* O span é a etiqueta responsavel por meter o texto em linha */
+.error-message span {
+    font-size: 0.85rem;
+    color: #991b1b;
+    font-weight: 500;
+}
+
+/* ===== INPUTS ===== */
+.form-group {
+    margin-bottom: 1.4rem;
+}
+
+/* O texto encima das caixas de texto por exemplo "Email" e "Password" */
+.form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #344054;
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.02em;
+}
+
+/* A caixa de texto em si */
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #1a1a2e;
+    background-color: #ffffff;
+    border: 1.5px solid #d0d5dd;
+    border-radius: 10px;
+
+    /* O outline é a linha que aparece em volta da caixa de texto quando o utilizador clica nela */
+    /* Neste caso retiramos essa linha */
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+/* O placeholder é o texto que aparece dentro da caixa de texto antes de o utilizador escrever */
+.form-group input::placeholder {
+    color: #9ca3af;
+    font-weight: 300;
+}
+
+/* Quando o utilizador clica na caixa de texto */
+/* O :focus é o elemento que faz com que a caixa de texto mude quando o utilizador clica nela */
+/* A borda da caixa de texto vai ficar azul escura quando o utilizador clicar nela */
+.form-group input:focus, .form-group select:focus {
+    border-color: #0f2545;
+    box-shadow: 0 0 0 3px rgba(15, 37, 69, 0.1);
+}
+
+/* ===== PASSWORD WRAPPER ===== */
+.password-wrapper {
+    position: relative;
+}
+
+/* Espaço á direita para o butão de mostrar/esconder a password, de modo que o texto da password para de avançar assim que chegar perto */
+.password-wrapper input {
+    padding-right: 4.2rem;
+}
+
+.toggle-password {
+    position: absolute;
+    /* O butão vai ficar a 0.85rem do fim da caixa de texto */
+    right: 0.85rem;
+    /* O butão vai ficar a 50% da altura da caixa de texto */
+    top: 50%;
+    /* Centraliza o butão verticalmente, puxando para cima metade do tamanho do butão */
+    /* Sem isto o butão ia ficar mais para baixo */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    /* O cursor vai mudar para a "maozinha" quando passar por cima do butão */
+    cursor: pointer;
+    color: #9ca3af;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+/* Quando o utilizador passar o rato por cima do butão de mostrar/esconder a password ,este muda de cor */
+.toggle-password:hover {
+    color: #0f2545;
+}
+
+
+
+/* ===== BOTÃO SIGN IN ===== */
+/* O butão de iniciar sessão, as caracteristicas */
+.btn-signin {
+    width: 100%;
+    padding: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0f2545 0%, #1a3a6b 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-signin:hover {
+    /* O butão vai subir um bocado */
+    transform: translateY(-2.5px);
+    /* A sombra */
+    box-shadow: 0 8px 25px rgba(15, 37, 69, 0.35);
+}
+
+/* ===== PAGINA 2 - REGISTO ===== */
+.register-container {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('/images/Register.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Registo */
+.register-card {
+    width: 100%;
+    max-width: 480px;
+    /* Um bocadinho mais largo para dar espaço para nomes duplos */
+    padding: 3.5rem 2.8rem;
+
+    /* background com gradient azul escuro */
+    background: linear-gradient(160deg, #0a1628 0%, #173866 100%);
+    border-radius: 24px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+
+    /* Um pequeno ajuste no topo para ficar centrado */
+    margin-top: 2rem;
+}
+
+/* Como o fundo é escuro na imagem, as etiquetas (Nome/Email/Password) têm de ser brancas/cinza claro */
+.register-card label {
+    color: #f3f4f6;
+}
+
+/* Titulo  */
+.register-card-title {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+
+/* Linha com duas colunas */
+.form-row {
+    display: flex;
+    gap: 1.2rem;
+    /* Anula as margens globais de baixo para as gerirmos nós */
+    margin-bottom: 1.4rem;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+    flex: 1;
+    /* Ocupa metade do espaço cada um */
+}
