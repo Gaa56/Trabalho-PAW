@@ -21,8 +21,8 @@ exports.getRegister = (req, res) => {
 // Processar o registo (POST /register)
 exports.postRegister = async (req, res) => {
     try {
-        // Extrair também a "address" e a "role" do corpo (formulário)
-        const { firstName, lastName, email, phone, nif, address, role, password } = req.body;
+
+        const { firstName, lastName, email, phone, nif, address, role, supermarketName, password } = req.body;
 
         // Verificar se já existe alguém com este email
         const userExists = await User.findOne({ email: email.toLowerCase() });
@@ -38,15 +38,27 @@ exports.postRegister = async (req, res) => {
             name: fullName,
             email: email.toLowerCase(),
             phone: phone.trim(),
-            nif: nif ? nif.trim() : '',
-            address: address.trim(), // Adicionar a morada!
-            role: role || 'cliente', // Guardar o tipo de conta (fallback para cliente)
-            password: password // NOTA: Num projeto real devíamos usar bcrypt aqui!
+            nif: nif ? nif.trim() : '', //Caso o utilizador tenha metido o nif, guarda-o, senao guarda uma string vazia
+            address: address.trim(), // Adicionar a morada
+            role: role || 'cliente', // Guardar o tipo de conta 
+            password: password
         });
 
         await newUser.save(); // Grava no MongoDB
 
-        // Opcional: Fazer login automático ao criar a conta
+        // Se o utilizador escolheu a role Supermercado, cria o perfil dele
+        if (role === 'supermercado') {
+            const Supermarket = require('../models/Supermarket');
+            const newSupermarket = new Supermarket({
+                owner: newUser._id,
+                name: supermarketName || 'O meu Supermercado',
+                location: {
+                    address: address.trim() // Usa a mesma morada
+                }
+            });
+            await newSupermarket.save();
+        }
+        //Fazer login automático ao criar a conta
         req.session.user = {
             id: newUser._id,
             name: newUser.name,
@@ -56,7 +68,7 @@ exports.postRegister = async (req, res) => {
 
         // Redireciona para a home
         res.redirect('/');
-        
+
     } catch (error) {
         console.error('Erro no registo:', error);
         res.render('register', { error: 'Ocorreu um erro ao criar a conta. Verifica os dados.' });
@@ -76,7 +88,7 @@ exports.postLogin = async (req, res) => {
             return res.render('login', { error: 'Email ou password incorretos.' });
         }
 
-        // Verificar a password (comparação direta, sem encriptação)
+        // Verificar a password
         if (user.password !== password) {
             return res.render('login', { error: 'Email ou password incorretos.' });
         }

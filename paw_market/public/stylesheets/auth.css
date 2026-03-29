@@ -182,7 +182,8 @@ body {
 }
 
 /* A caixa de texto em si */
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 0.8rem 1rem;
     font-family: 'Inter', sans-serif;
@@ -207,7 +208,8 @@ body {
 /* Quando o utilizador clica na caixa de texto */
 /* O :focus é o elemento que faz com que a caixa de texto mude quando o utilizador clica nela */
 /* A borda da caixa de texto vai ficar azul escura quando o utilizador clicar nela */
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
     border-color: #0f2545;
     box-shadow: 0 0 0 3px rgba(15, 37, 69, 0.1);
 }

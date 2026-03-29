@@ -1,0 +1,36 @@
+---- RESUMO DO AUTHTCONTROLLER (Lógica de Autenticação) ----
+_________________________________________________________________________________________________________________________________________________
+--1. Configuração Inicial e Importações
+1.1 (const User = require('../models/User');) - Importa o "molde" (Modelo) de um Utilizador. 
+- Isto permite que o controlador consiga falar com a Base de Dados (MongoDB) para procurar, criar ou verificar utilizadores.
+_________________________________________________________________________________________________________________________________________________
+--2. Mostrar Páginas (Pedidos GET)
+Cuidam de devolver o HTML para o ecrã do utilizador quando ele escreve o endereço ou clica num link.
+
+2.1 Mostrar a página de Login (exports.getLogin)
+- Verifica primeiro se o utilizador já tem iníciado sessão (req.session.user). Se tiver, redireciona-o logo para a página principal ('/').
+- Caso contrário, mostra o ecrã de login res.render('login', ...).
+
+2.2 Mostrar a página de Registo (exports.getRegister)
+- Funciona da mesma lógica: se já existir sessão logada, manda para a página inicial, caso contrário mostra o formulário de registo.
+_________________________________________________________________________________________________________________________________________________
+--3. Processar Formulários (Pedidos POST)
+Cuidam de receber os dados secretos introduzidos pelos utilizadores nas caixas de texto.
+
+3.1 Criar uma Conta Nova (exports.postRegister)
+- Extrai os campos do formulário (nome, email, morada, password, etc.) recebidos pelo "req.body".
+- Verifica se já existe um email igual registado usando "User.findOne". Se sim, avisa que o email já está em uso.
+- Junta o primeiro e último nome numa variável "fullName".
+- Cria um novo documento (newUser) com os dados recebidos e guarda na Base de Dados com o comando "await newUser.save()".
+- Por fim, regista a sessão automática (login automático com "req.session.user") e redireciona (redirect) para a página inicial ('/').
+
+3.2 Entrar no Sistema (exports.postLogin)
+- Recebe o email e a password introduzidos.
+- Procura o utilizador correspondente ao email inserido. Se não for encontrado ou se a password estiver errada, recarrega a página revelando uma mensagem de erro ("Email ou password incorretos.").
+- Verifica também se a conta não está inativa (user.isActive).
+- Tudo estando correto, limpa os dados da password e guarda apenas dados seguros (id, nome, email, rolo) na "req.session.user" (Sessão). De seguida redireciona para a página principal ('/').
+_________________________________________________________________________________________________________________________________________________
+--4. Terminar Sessão / Sair
+4.1 Logout (exports.logout)
+- Destrói completamente a sessão ativa que estava guardada na memória do servidor através de "req.session.destroy()".
+- Se houver algum erro a apagar mostra no terminal (console.error), senão, envia o utilizador de volta para a página de Login ('/login').

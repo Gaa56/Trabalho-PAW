@@ -12,12 +12,13 @@
 </head>
 
 <body>
-    <!-- Container principal (Imagem Register.png de fundo) -->
+    <!-- Container principal -->
     <div class="register-container">
 
 
         <div class="register-card">
 
+            <!-- Título -->
             <h1 class="register-card-title">Criar Conta</h1>
 
 
@@ -77,14 +78,20 @@
                         <!-- 5. Linha Única: Tipo de Conta -->
                         <div class="form-group" style="margin-bottom: 1.4rem;">
                             <label for="role">Tipo de Conta</label>
-                            <select id="role" name="role" required>
+                            <select id="role" name="role" required onchange="toggleSupermarketField()">
                                 <option value="cliente" selected>Cliente</option>
                                 <option value="estafeta">Estafeta</option>
                                 <option value="supermercado">Supermercado</option>
                             </select>
                         </div>
 
-                        <!-- 5. Linha Única: Password -->
+                        <!-- 6. Linha Única: Nome do Supermercado  -->
+                        <div class="form-group" id="supermarketNameGroup" style="display: none; margin-bottom: 1.4rem;">
+                            <label for="supermarketName">Nome do Supermercado</label>
+                            <input type="text" id="supermarketName" name="supermarketName" placeholder="Ex: Continente">
+                        </div>
+
+                        <!-- 7. Linha Única: Password -->
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="password-wrapper">
@@ -104,7 +111,7 @@
 
                         <!-- Botão de Voltar ao Login por baixo -->
                         <div style="text-align: center; margin-top: 1.8rem;">
-                            <!-- Meti uma transição suave para branco quando o rato passa no link de baixo -->
+
                             <a href="/login"
                                 style="color: #9ca3af; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;"
                                 onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#9ca3af'">
@@ -115,7 +122,7 @@
         </div>
     </div>
 
-    <!-- Script idêntico para a password -->
+    <!-- Script para password e dropdown do supermercado -->
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
@@ -126,6 +133,21 @@
             } else {
                 passwordInput.type = 'password';
                 eyeText.textContent = 'Mostrar';
+            }
+        }
+
+        function toggleSupermarketField() {
+            const roleSelect = document.getElementById('role');
+            const supermarketGroup = document.getElementById('supermarketNameGroup');
+            const supermarketInput = document.getElementById('supermarketName');
+
+            if (roleSelect.value === 'supermercado') {
+                supermarketGroup.style.display = 'block';
+                supermarketInput.required = true;
+            } else {
+                supermarketGroup.style.display = 'none';
+                supermarketInput.required = false;
+                supermarketInput.value = ''; // Limpa o valor se trocar de ideia
             }
         }
     </script>
