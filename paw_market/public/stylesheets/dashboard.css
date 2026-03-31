@@ -1,0 +1,219 @@
+/* --- 1. RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+    overflow-x: hidden;
+    display: flex;
+    /* Para colocar o Sidebar e o Conteúdo lado a lado */
+    min-height: 100vh;
+}
+
+/* --- 2. SIDEBAR (Menu Lateral Esquerdo com Gradient Azul) --- */
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    /* Gradient azul escuro -> azul médio */
+    background: linear-gradient(180deg, #0a1628 0%, #0f2545 40%, #1a3a6b 100%);
+    padding: 2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    /* Fica fixo no ecrã, não acompanha o scroll */
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+/* Logotipo no topo do Sidebar */
+.sidebar-brand {
+    padding: 0 0.5rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.brand-super {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.brand-hub {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #60a5fa;
+    /* Azul bonito vibrante */
+}
+
+/* Links de Navegação do Sidebar */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    /* Ocupa o espaço disponível, empurrando o footer para o fundo */
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: #94a3b8;
+    /* Cinza claro quando inativo */
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* Link ativo (Página onde estamos agora) */
+.sidebar-link.active {
+    background-color: rgba(96, 165, 250, 0.15);
+    color: #60a5fa;
+}
+
+/* Footer do Sidebar (Botão de Sair da Conta) */
+.sidebar-footer {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: #f87171;
+    /* Vermelho suave */
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-logout:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #ef4444;
+}
+
+/* --- 3. PAGE WRAPPER (Tudo à direita do Sidebar) --- */
+.page-wrapper {
+    margin-left: 260px;
+    /* O mesmo que a largura do sidebar */
+    flex: 1;
+    min-height: 100vh;
+}
+
+/* --- 4. NAVBAR SUPERIOR (Agora mais compacta, dentro do conteúdo) --- */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* Info do Utilizador no canto direito da navbar */
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f2545, #1a3a6b);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+/* --- 5. LAYOUT CENTRAL E HERO BANNER --- */
+.main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* O Banner que vai utilizar a imagem ClientHome.png */
+.hero-banner {
+    position: relative;
+    background-color: #0f2545;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5rem 3.5rem;
+    min-height: 280px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(15, 37, 69, 0.2);
+}
+
+.hero-content {
+    color: #ffffff;
+    z-index: 3;
+    max-width: 40%;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+/* Onde inserimos a imagem do cliente lateralmente */
+.hero-image {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 110%;
+    max-width: 55%;
+    z-index: 1;
+    object-fit: contain;
+}

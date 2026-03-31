@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <!-- Ligação ao novo CSS exclusivo do Dashboard com largura limitada! -->
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+</head>
+
+<body>
+
+    <!-- ============================================== -->
+    <!-- SIDEBAR (Menu lateral esquerdo com gradient)   -->
+    <!-- ============================================== -->
+    <aside class="sidebar">
+        <!-- Logotipo no topo do sidebar -->
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+
+        <!-- Links de Navegação -->
+        <nav class="sidebar-nav">
+            <a href="/" class="sidebar-link active">Início</a>
+            <a href="#" class="sidebar-link">Perfil</a>
+            <a href="#" class="sidebar-link">Minhas Encomendas</a>
+        </nav>
+
+        <!-- Botão de logout no fundo do sidebar -->
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </aside>
+
+    <!-- ============================================== -->
+    <!-- CONTEÚDO PRINCIPAL (ao lado do sidebar)        -->
+    <!-- ============================================== -->
+    <div class="page-wrapper">
+
+        <!-- ESPAÇO CENTRAL DO DASHBOARD -->
+        <main class="main-container">
+
+
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <h1 class="hero-title">Bem-vindo, <%= user.name.split(' ')[0] %></h1>
+                </div>
+                
+                
+                <img src="/images/ClientHome.png" alt="Cliente Home Logo" class="hero-image">
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

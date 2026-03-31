@@ -1,15 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET home page (Dashboard inteligente) */
 router.get('/', function (req, res, next) {
   // Se não houver nenhum utilizador com sessão iniciada:
   if (!req.session.user) {
     return res.redirect('/login');
   }
 
-  // Se tiver sessão, deixa-o ver a página inicial (Dashboard)
-  res.render('index', { title: 'MercadoPAW - A tua loja' });
+  const role = req.session.user.role;
+
+  // Redireciona consoante a Função (Role)
+  if (role === 'cliente') {
+    return res.render('home_cliente', { user: req.session.user, title: 'MercadoPAW - A tua loja' });
+  } else {
+    // Para as outras roles (Supermercado, Estafeta, Admin) que faremos depois, mostra o ecrã basico
+    return res.render('index', { title: 'Bem-vindo ao Dashboard - ' + role });
+  }
 });
 
 module.exports = router;
