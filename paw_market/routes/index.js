@@ -13,6 +13,8 @@ router.get('/', function (req, res, next) {
   // Redireciona consoante a Função (Role)
   if (role === 'cliente') {
     return res.render('home_cliente', { user: req.session.user, title: 'MercadoPAW - A tua loja' });
+  } else if (role === 'supermercado') {
+    return res.redirect('/supermarket');
   } else {
     // Para as outras roles (Supermercado, Estafeta, Admin) que faremos depois, mostra o ecrã basico
     return res.render('index', { title: 'Bem-vindo ao Dashboard - ' + role });
