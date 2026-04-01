@@ -1,0 +1,23 @@
+const express = require('express');
+const router = express.Router();
+const supermarketController = require('../controllers/supermarketController');
+
+// Middleware para proteger a rota a apenas "supermarket"
+const checkSupermarket = (req, res, next) => {
+    if (req.session.user && req.session.user.role === 'supermarket') return next();
+    res.redirect('/');
+};
+
+router.use(checkSupermarket);
+
+// Dashboard e Perfil
+router.get('/', supermarketController.getDashboard);
+router.get('/profile', supermarketController.getProfile);
+router.post('/profile', supermarketController.postProfile);
+
+// Produtos
+router.get('/products', supermarketController.getProducts);
+router.get('/products/new', supermarketController.getNewProduct);
+router.post('/products/new', supermarketController.postNewProduct);
+
+module.exports = router;

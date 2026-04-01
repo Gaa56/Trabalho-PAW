@@ -1,19 +1,23 @@
 const Supermarket = require('../models/Supermarket');
-
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
 exports.getDashboard = async (req, res) => {
-    res.render('supermarket/dashboard', {
-        user:
-            req.session.user
-    });
+    res.render('supermarket/dashboard', { user: req.session.user });
+};
 
+exports.getProfile = async (req, res) => {
+    try {
+        const superm = await Supermarket.findOne({ owner: req.session.user.id });
+        res.render('supermarket/profile', { user: req.session.user, superm });
+    } catch (error) {
+        res.status(500).send("Erro ao carregar perfil.");
+    }
 };
 
 exports.postProfile = async (req, res) => {
     try {
-        const { description, openingHours, deliveryCost } = req.body;
+        const { description, deliveryCost } = req.body;
         await Supermarket.findOneAndUpdate(
             { owner: req.session.user.id },
             { description, deliveryCost }
@@ -33,10 +37,12 @@ exports.getProducts = async (req, res) => {
         res.status(500).send("Erro ao listar produtos.");
     }
 };
+
 exports.getNewProduct = async (req, res) => {
     const categories = await Category.find();
     res.render('supermarket/product_form', { user: req.session.user, categories });
 };
+
 exports.postNewProduct = async (req, res) => {
     try {
         const superm = await Supermarket.findOne({ owner: req.session.user.id });
