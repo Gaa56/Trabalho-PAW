@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/cliente" class="sidebar-link">Início</a>
+            <a href="/cliente/products" class="sidebar-link active">Produtos</a>
+            <a href="/cliente/cart" class="sidebar-link">Carrinho</a>
+            <a href="/cliente/orders" class="sidebar-link">Minhas Encomendas</a>
+            <a href="/cliente/profile" class="sidebar-link">Perfil</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <div class="page-wrapper">
+        <main class="main-container">
+
+            <h1 style="color: #1a237e; margin-bottom: 24px;">Produtos</h1>
+
+            <!-- BARRA DE PESQUISA E FILTROS -->
+            <form method="GET" action="/cliente/products"
+                style="display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; align-items: flex-end;">
+                <!-- Pesquisa por nome -->
+                <div style="flex: 2; min-width: 200px;">
+                    <label style="display: block; font-size: 13px; color: #666; margin-bottom: 4px;">Pesquisar</label>
+                    <input type="text" name="search" value="<%= search %>" placeholder="Nome do produto..."
+                        style="width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                </div>
+
+                <!-- Filtro por categoria -->
+                <div style="flex: 1; min-width: 160px;">
+                    <label style="display: block; font-size: 13px; color: #666; margin-bottom: 4px;">Categoria</label>
+                    <select name="category"
+                        style="width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: white;">
+                        <option value="">Todas</option>
+                        <% categories.forEach(function(cat) { %>
+                            <option value="<%= cat._id %>" <%=selectedCategory===cat._id.toString() ? 'selected' : '' %>
+                                ><%= cat.name %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+
+                <!-- Ordenar por preço -->
+                <div style="flex: 1; min-width: 160px;">
+                    <label style="display: block; font-size: 13px; color: #666; margin-bottom: 4px;">Ordenar por</label>
+                    <select name="sort"
+                        style="width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: white;">
+                        <option value="">Mais recentes</option>
+                        <option value="preco_asc" <%=selectedSort==='preco_asc' ? 'selected' : '' %>>Preço: Menor →
+                            Maior</option>
+                        <option value="preco_desc" <%=selectedSort==='preco_desc' ? 'selected' : '' %>>Preço: Maior →
+                            Menor</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                    style="padding: 10px 24px; background: #1a237e; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                    Pesquisar
+                </button>
+            </form>
+
+            <!-- MENSAGENS DE ERRO -->
+            <% if (typeof erro !=='undefined' ) { %>
+                <div
+                    style="background: #ffebee; color: #c62828; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
+                    <% if (erro==='sem_stock' ) { %>Produto sem stock disponível.
+                        <% } else if (erro==='supermercado_diferente' ) { %>Só podes adicionar produtos do mesmo
+                            supermercado ao carrinho. Finaliza ou limpa o carrinho atual primeiro.
+                            <% } %>
+                </div>
+                <% } %>
+
+                    <!-- LISTA DE PRODUTOS -->
+                    <% if (products.length===0) { %>
+                        <div style="text-align: center; padding: 60px 20px; color: #888;">
+                            <p style="font-size: 18px;">Nenhum produto encontrado.</p>
+                            <p style="font-size: 14px; margin-top: 8px;">Tenta mudar os filtros de pesquisa.</p>
+                        </div>
+                        <% } else { %>
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;">
+                                <% products.forEach(function(product) { %>
+                                    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s;"
+                                        onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
+                                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">
+
+                                        <!-- Imagem do produto -->
+                                        <div
+                                            style="height: 160px; background: #f0f2f5; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                            <% if (product.image) { %>
+                                                <img src="<%= product.image %>" alt="<%= product.name %>"
+                                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                                <!-- Caso nao tenha imagem mete um emoji -->
+                                                <% } else { %>
+                                                    <span style="font-size: 48px;">🛒</span>
+                                                    <% } %>
+                                        </div>
+
+                                        <div style="padding: 16px;">
+                                            <!-- Categoria -->
+                                            <span
+                                                style="font-size: 11px; color: #1a237e; background: #e8eaf6; padding: 3px 10px; border-radius: 20px; font-weight: 600;">
+                                                <%= product.category ? product.category.name : 'Sem categoria' %>
+                                            </span>
+
+                                            <!-- Nome -->
+                                            <h3 style="margin: 10px 0 4px 0; font-size: 16px; color: #1f2937;">
+                                                <%= product.name %>
+                                            </h3>
+
+                                            <!-- Supermercado -->
+                                            <p style="font-size: 12px; color: #888; margin: 0 0 10px 0;">
+                                                <%= product.supermarket ? product.supermarket.name : '' %>
+                                            </p>
+
+                                            <!-- Preço e Stock -->
+                                            <div
+                                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                                <span style="font-size: 22px; font-weight: 800; color: #1a237e;">
+                                                    <%= product.price.toFixed(2) %> €
+                                                </span>
+                                                <span
+                                                    style="font-size: 12px; color: <%= product.stock > 0 ? '#2e7d32' : '#c62828' %>;">
+                                                    <%= product.stock> 0 ? product.stock + ' em stock' : 'Sem stock' %>
+                                                </span>
+                                            </div>
+
+                                            <!-- Botões -->
+                                            <div style="display: flex; gap: 8px;">
+                                                <form method="POST" action="/cliente/cart/add" style="flex: 1;">
+                                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <button type="submit" <%=product.stock <=0 ? 'disabled' : '' %>
+                                                        style="width: 100%; padding: 10px; background: <%=
+                                                            product.stock> 0 ? '#1a237e' : '#ccc' %>; color: white;
+                                                            border: none; border-radius: 8px; font-size: 13px;
+                                                            font-weight: 600; cursor: <%= product.stock> 0 ? 'pointer' :
+                                                                'not-allowed' %>;">
+                                                                Adicionar
+                                                    </button>
+                                                </form>
+                                                <a href="/cliente/compare?productName=<%= encodeURIComponent(product.name) %>"
+                                                    style="padding: 10px 14px; background: #e8eaf6; color: #1a237e; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
+                                                    Comparar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

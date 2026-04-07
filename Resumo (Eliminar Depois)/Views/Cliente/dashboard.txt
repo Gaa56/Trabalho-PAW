@@ -1,0 +1,80 @@
+==================================================================
+RESUMO DA VIEW: DASHBOARD DO CLIENTE
+==================================================================
+Ficheiro: paw_market/views/cliente/dashboard.ejs
+
+Este ficheiro é a página principal ("Visão Geral") quando o Cliente inicia sessão.
+Está desenhado com HTML puro, CSS global (main.css) e lógica EJS (para integrar os dados do servidor).
+
+--------------------------------------------------
+1. O QUE É EJS? (Conceitos Essenciais)
+--------------------------------------------------
+* <% ... %> (Sem igual)
+  Serve para escrever código lógico JavaScript "invisível" que o servidor vai processar. Não imprime nada no ecrã e o browser não o recebe. Usamos muito para abrir ciclos "IF" ou ciclos "FOR".
+  Exemplo: <% if (recentOrders.length > 0) { %>
+
+* <%= ... %> (Com igual)
+  Serve para IMPRIMIR / MOSTRAR o valor duma variável no ecrã.
+  Exemplo: Bem-vindo, <%= user.name %> imprime "Bem-vindo, João".
+
+
+--------------------------------------------------
+2. ESTRUTURA DA PÁGINA
+--------------------------------------------------
+A página está desenhada em duas grandes metades lado a lado:
+* <aside class="sidebar"> 
+  O menu lateral esquerdo escuro (código constante).
+
+* <main class="page-wrapper">
+  O resto da página inteira à direita do menu. Engloba toda a informação útil incluindo a Navbar superior e as nossas tabelas lá no fundo.
+
+
+--------------------------------------------------
+3. RECEÇÃO DE DADOS DO BACKEND (O CONTROLLER)
+--------------------------------------------------
+Variaveis do 'clienteController.js':
+- user: Todos os dados da pessoa que tem sessão iniciada.
+- totalOrders: Um número puro das encomendas ativas.
+- totalSpent: Um número com os gastos totais globais.
+- topProducts: Uma matriz (Array) com os produtos favoritados pelo uso.
+- recentOrders: Uma matriz (Array) das 5 últimas encomeadas.
+
+
+--------------------------------------------------
+4. OS CARDS E O TOFIXED(2)
+--------------------------------------------------
+Temos os cartões brancos com estatísticas.
+Para garantir que o número de euros vem bonito e corporativo com 2 casas decimais (ex: 25.50€ ou 10.00€ e nunca 25.5€), usámos uma função de JavaScript embutida:
+Linha de código: <%= totalSpent.toFixed(2) %> €
+
+
+--------------------------------------------------
+5. TABELA "PRODUTOS MAIS COMPRADOS" (O Ciclo ForEach)
+--------------------------------------------------
+Para imprimir listagens vindas da base de dados sem usar Copy-Paste fazemos:
+<% topProducts.forEach(function(p) { %>
+    <tr>
+        <td><%= p._id %></td>
+        <td><%= p.totalQty %></td>
+    </tr>
+<% }) %>
+
+* Pega na lista 'topProducts'. O "forEach" é o motor que avança na lista passo a passo. A "function(p)" atira cada unidade dessa lista para dentro de uma caixinha chamada "p" (Produto). Daí o EJS constrói a linha HTML "<tr>" usando os valores de p e avança para a próxima unidade, injetando outra linha de raiz.
+
+
+--------------------------------------------------
+6. TABELA "ÚLTIMAS ENCOMENDAS" (Lógica Intermédia na Tabela)
+--------------------------------------------------
+Esta tabela final tem código super inteligente para se auto-adaptar:
+
+A) Operadores Ternários (O "If" rápido de 1 linha)
+  Código: <%= order.supermarket ? order.supermarket.name : ' N/A' %>
+  * O que faz: É uma bomba de salvação! Analisa se há ligação ao supermercado. Se a ordem TEM supermercado (pergunta verdadeira "?"), mostra o super. Se tiver dado erro de conexão na base de dados e não existir (resposta falsa ":"), exibe um simpático "N/A" para o site não colapsar inteiro.
+
+B) CSS Dinâmico (Cores Vivas)
+  Código: background: <%= order.status === 'entregue' ? '#e8f5e9' : '#e3f2fd' %>;
+  * O que faz: Cruzou EJS para desenhar cor HTML! Em vez de ter uma cor fixa no "style=", a cor muda sozinha. Se a variável status disser a palavra exata 'entregue', a pílula do Estado pinta-se num fundo verde, senão, pinta de azul. Inteligência visual pura.
+
+C) Tradução de Datas 
+  Código: <%= order.createdAt.toLocaleDateString('pt-PT') %>
+  * O que faz: As bases de dados memorizam o tempo em formato de robô (ex: "2024-05-18T14:30:00Z"). Ao puxarmos esta função "toLocaleDateString", o JavaScript traduz no último milésimo de segundo para um relógio Português legível ("18/05/2024").

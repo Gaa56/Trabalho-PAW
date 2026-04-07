@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/cliente" class="sidebar-link">Início</a>
+            <a href="/cliente/products" class="sidebar-link">Produtos</a>
+            <a href="/cliente/cart" class="sidebar-link">Carrinho</a>
+            <a href="/cliente/orders" class="sidebar-link active">Minhas Encomendas</a>
+            <a href="/cliente/profile" class="sidebar-link">Perfil</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="page-wrapper">
+        <main class="main-container">
+
+            <a href="/cliente/orders" style="color: #1a237e; text-decoration: none; font-size: 14px;">← Voltar às Encomendas</a>
+
+            <h1 style="color: #1a237e; margin: 16px 0 24px 0;">Encomenda #<%= order._id.toString().slice(-6).toUpperCase() %></h1>
+
+            <div style="display: grid; grid-template-columns: 1fr 350px; gap: 24px;">
+
+                <!-- Detalhes dos produtos -->
+                <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h2 style="font-size: 18px; color: #1f2937; margin-bottom: 16px;">Produtos</h2>
+
+                    <% order.items.forEach(function(item) { %>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #f0f0f0;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 48px; height: 48px; background: #f0f2f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 20px;">🛒</span>
+                            </div>
+                            <div>
+                                <span style="font-weight: 600;"><%= item.name %></span>
+                                <span style="display: block; font-size: 13px; color: #888;">x<%= item.quantity %> × <%= item.priceAtTime.toFixed(2) %> €</span>
+                            </div>
+                        </div>
+                        <span style="font-weight: 700; color: #1a237e;"><%= (item.quantity * item.priceAtTime).toFixed(2) %> €</span>
+                    </div>
+                    <% }) %>
+                </div>
+
+                <!-- Informações da encomenda -->
+                <div>
+                    <!-- Estado -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;">
+                        <h2 style="font-size: 16px; color: #666; margin-bottom: 12px;">Estado</h2>
+                        <span style="padding: 6px 18px; border-radius: 20px; font-size: 14px; font-weight: 700;
+                            background: <%= order.status === 'entregue' ? '#e8f5e9' : order.status === 'cancelada' ? '#ffebee' : order.status === 'pendente' ? '#fff3e0' : '#e3f2fd' %>;
+                            color: <%= order.status === 'entregue' ? '#2e7d32' : order.status === 'cancelada' ? '#c62828' : order.status === 'pendente' ? '#e65100' : '#1565c0' %>;">
+                            <%= order.status %>
+                        </span>
+                    </div>
+
+                    <!-- Supermercado -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;">
+                        <h2 style="font-size: 16px; color: #666; margin-bottom: 8px;">Supermercado</h2>
+                        <p style="font-weight: 600; margin: 0;"><%= order.supermarket ? order.supermarket.name : 'N/A' %></p>
+                        <% if (order.supermarket && order.supermarket.phone) { %>
+                        <p style="font-size: 13px; color: #888; margin: 4px 0 0 0;">Tel: <%= order.supermarket.phone %></p>
+                        <% } %>
+                    </div>
+
+                    <!-- Entrega -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;">
+                        <h2 style="font-size: 16px; color: #666; margin-bottom: 8px;">Entrega</h2>
+                        <p style="font-weight: 600; margin: 0;"><%= order.deliveryMethod === 'pickup' ? 'Levantamento em Loja' : 'Entrega por Estafeta' %></p>
+                        <% if (order.courier) { %>
+                        <p style="font-size: 13px; color: #888; margin: 4px 0 0 0;">Estafeta: <%= order.courier.name %></p>
+                        <% } %>
+                        <% if (order.deliveryCost > 0) { %>
+                        <p style="font-size: 13px; color: #888; margin: 4px 0 0 0;">Custo de entrega: <%= order.deliveryCost.toFixed(2) %> €</p>
+                        <% } %>
+                    </div>
+
+                    <!-- Total -->
+                    <div style="background: #1a237e; border-radius: 12px; padding: 24px; color: white; text-align: center;">
+                        <p style="font-size: 14px; margin: 0 0 4px 0; opacity: 0.8;">Total</p>
+                        <p style="font-size: 32px; font-weight: 800; margin: 0;"><%= order.totalAmount.toFixed(2) %> €</p>
+                    </div>
+
+                    <!-- Cancelar -->
+                    <% if (['pendente', 'confirmada'].includes(order.status)) { %>
+                    <form method="POST" action="/cliente/orders/<%= order._id %>/cancel" style="margin-top: 16px;">
+                        <button type="submit" style="width: 100%; padding: 14px; background: #ffebee; color: #c62828; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer;">
+                            Cancelar Encomenda
+                        </button>
+                    </form>
+                    <% } %>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

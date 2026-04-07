@@ -28,7 +28,8 @@ async function seed() {
         password: 'admin123',
         phone: '900100100',
         address: 'Sede SuperMarket Hub, Porto',
-        role: 'admin'
+        role: 'admin',
+        nif: ''
     });
     console.log('Admin criado:', admin.email);
 
@@ -38,7 +39,8 @@ async function seed() {
         password: 'lidl123',
         phone: '210207000',
         address: 'Rua Professor Joaquim Barros Leite, 4610-211, Felgueiras',
-        role: 'supermercado'
+        role: 'supermercado',
+        nif: ''
     });
 
     const superUser2 = await User.create({
@@ -47,7 +49,8 @@ async function seed() {
         password: 'pingo123',
         phone: '938875725',
         address: 'Rua D.Manuel Faria De Sousa, 4610-178, Felgueiras',
-        role: 'supermercado'
+        role: 'supermercado',
+        nif: ''
     });
 
     const cliente = await User.create({
@@ -56,7 +59,8 @@ async function seed() {
         password: '123456',
         phone: '912345678',
         address: 'Rua das Flores, 4050-262, Porto',
-        role: 'cliente'
+        role: 'cliente',
+        nif: ''
     });
 
     const estafeta = await User.create({
@@ -65,7 +69,8 @@ async function seed() {
         password: '123456',
         phone: '911222333',
         address: 'Rua do Comercio, 8000-269, Faro',
-        role: 'estafeta'
+        role: 'estafeta',
+        nif: ''
     });
     console.log('Utilizadores criados.');
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/cliente" class="sidebar-link">Início</a>
+            <a href="/cliente/products" class="sidebar-link">Produtos</a>
+            <a href="/cliente/cart" class="sidebar-link">Carrinho</a>
+            <a href="/cliente/orders" class="sidebar-link">Minhas Encomendas</a>
+            <a href="/cliente/profile" class="sidebar-link active">Perfil</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="page-wrapper">
+        <main class="main-container">
+
+            <h1 style="color: #1a237e; margin-bottom: 24px;">Meu Perfil</h1>
+
+            <div style="max-width: 600px;">
+                <div
+                    style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+
+                    <!-- Info de Contacto -->
+                    <div
+                        style="text-align: center; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                        <p style="color: #1a237e; font-size: 18px; font-weight: 700; margin: 0;">
+                            <%= userData.email %>
+                        </p>
+                        <p style="color: #888; font-size: 13px; margin: 4px 0 0 0;">
+                            Conta de Cliente
+                        </p>
+                    </div>
+
+                    <form method="POST" action="/cliente/profile">
+
+                        <!-- Nome -->
+                        <div style="margin-bottom: 18px;">
+                            <label
+                                style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;">Nome</label>
+                            <input type="text" name="name" value="<%= userData.name %>" required
+                                style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+
+                        <!-- Telefone -->
+                        <div style="margin-bottom: 18px;">
+                            <label
+                                style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;">Telefone</label>
+                            <input type="text" name="phone" value="<%= userData.phone %>" required
+                                style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+
+                        <!-- Morada -->
+                        <div style="margin-bottom: 18px;">
+                            <label
+                                style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;">Morada</label>
+                            <input type="text" name="address" value="<%= userData.address %>" required
+                                style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+
+                        <!-- NIF -->
+                        <div style="margin-bottom: 24px;">
+                            <label
+                                style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;">NIF
+                                (Opcional)</label>
+                            <input type="text" name="nif" value="<%= userData.nif || '' %>"
+                                style="width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                        </div>
+
+                        <!-- Botão -->
+                        <button type="submit"
+                            style="width: 100%; padding: 14px; background: #1a237e; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer;">
+                            Guardar Alterações
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+==================================================================
+RESUMO DA VIEW: PERFIL DO CLIENTE
+==================================================================
+Ficheiro: paw_market/views/cliente/profile.ejs
+
+Esta página permite ao cliente ver e editar os seus dados pessoais (nome, telefone, morada e NIF).
+
+
+--------------------------------------------------
+1. ESTRUTURA GERAL
+--------------------------------------------------
+A página está dividida em duas partes:
+- Barra lateral (sidebar): Menu de navegação à esquerda, igual em todas as páginas do cliente.
+- Conteúdo principal (page-wrapper): O formulário de edição do perfil.
+
+
+--------------------------------------------------
+2. CABEÇALHO DO PERFIL (Email do utilizador)
+--------------------------------------------------
+No topo do cartão branco, mostramos o email do cliente:
+
+<p><%= userData.email %></p>
+<p>Conta de Cliente</p>
+
+* O que faz: Vai à base de dados buscar o email do utilizador que tem sessão iniciada e imprime-o centrado no topo do formulário, seguido do texto fixo "Conta de Cliente".
+* Porquê o email e não o nome? Porque o nome pode ser editado no formulário abaixo, mas o email é a identidade fixa da conta.
+
+
+--------------------------------------------------
+3. O FORMULÁRIO (<form method="POST" action="/cliente/profile">)
+--------------------------------------------------
+Este é o coração da página. Tem 4 campos de texto (inputs):
+
+A) Nome (obrigatório)
+   <input type="text" name="name" value="<%= userData.name %>" required>
+   * "name" é o identificador que o servidor vai receber quando o formulário for submetido.
+   * "value" preenche automaticamente a caixa com o nome atual que está gravado na base de dados.
+   * "required" impede o browser de enviar o formulário se o campo estiver vazio.
+
+B) Telefone (obrigatório)
+   <input type="text" name="phone" value="<%= userData.phone %>" required>
+
+C) Morada (obrigatória)
+   <input type="text" name="address" value="<%= userData.address %>" required>
+
+D) NIF (opcional)
+   <input type="text" name="nif" value="<%= userData.nif || '' %>">
+   * Nota: Não tem "required" porque o NIF é opcional.
+   * O "|| ''" é uma proteção: se o utilizador nunca preencheu o NIF (e o valor na base de dados for undefined/null), em vez de aparecer a palavra "undefined" na caixa de texto, aparece simplesmente vazio.
+
+
+--------------------------------------------------
+4. O BOTÃO "GUARDAR ALTERAÇÕES"
+--------------------------------------------------
+<button type="submit">Guardar Alterações</button>
+
+* "type=submit" diz ao browser: quando o utilizador clicar neste botão, agarra em todos os valores dos inputs (name, phone, address, nif) e envia-os para o endereço que está no "action" do formulário (/cliente/profile) usando o método POST.
+* No backend, o controlador (clienteController.js -> postProfile) recebe esses dados, atualiza a base de dados com User.findByIdAndUpdate(), e redireciona o utilizador de volta para esta mesma página já com os dados atualizados.
+
+
+--------------------------------------------------
+5. EXEMPLO pratico
+--------------------------------------------------
+1. O cliente altera o nome de "Maria Silva" para "Maria Santos".
+2. Clica em "Guardar Alterações".
+3. O browser envia um pedido POST para /cliente/profile com os dados do formulário.
+4. O Express (routes/cliente.js) recebe o pedido e chama clienteController.postProfile.
+5. O controller extrai os valores: const { name, phone, address, nif } = req.body;
+6. O controller atualiza a base de dados: User.findByIdAndUpdate(id, { name, phone, address, nif });
+7. O controller atualiza também a sessão: req.session.user.name = name;
+8. O controller redireciona: res.redirect('/cliente/profile');
+9. O browser faz um novo GET /cliente/profile, o controller busca os dados frescos, e a página aparece com "Maria Santos" no campo Nome.

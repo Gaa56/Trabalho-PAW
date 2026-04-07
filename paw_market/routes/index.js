@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
   // Redireciona consoante a Função (Role)
   if (role === 'cliente') {
-    return res.render('home_cliente', { user: req.session.user, title: 'MercadoPAW - A tua loja' });
+    return res.redirect('/cliente');
   } else if (role === 'supermercado') {
     return res.redirect('/supermarket');
   } else {
