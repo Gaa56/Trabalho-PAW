@@ -120,192 +120,65 @@ async function seed() {
     console.log('Supermercados criados');
 
     await Product.create([
-        {
-            name: 'Maçã Royal', description: 'Maçã nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Banana', description: 'Banana nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Laranja', description: 'Laranja nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Pera', description: 'Pera nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Uva', description: 'Uva nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Manga', description: 'Manga nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Abacaxi', description: 'Abacaxi nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Melancia', description: 'Melancia nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Melão', description: 'Melão nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
-        {
-            name: 'Morango', description: 'Morango nacional Kg', category: cats[0]._id,
-            price: 1.99, stock: 100, supermarket: super1._id
-        },
+        // Frutas e Legumes (cats[0])
+        { name: 'Maçã', description: 'Maçã nacional Kg', category: cats[0]._id, price: 1.99, stock: 100, supermarket: super1._id },
+        { name: 'Banana', description: 'Banana nacional Kg', category: cats[0]._id, price: 1.49, stock: 80, supermarket: super1._id },
+        { name: 'Maçã', description: 'Maçã nacional Kg', category: cats[0]._id, price: 2.29, stock: 60, supermarket: super2._id, image: '/images/products/Pingo Doce/maça.png' },
+        { name: 'Banana', description: 'Banana nacional Kg', category: cats[0]._id, price: 1.29, stock: 90, supermarket: super2._id, image: '/images/products/Pingo Doce/banana.png' },
 
+        // Carne (cats[1])
+        { name: 'Frango Inteiro', description: 'Frango inteiro Kg', category: cats[1]._id, price: 3.99, stock: 50, supermarket: super1._id },
+        { name: 'Carne Picada', description: 'Carne picada bovino Kg', category: cats[1]._id, price: 5.49, stock: 40, supermarket: super1._id },
+        { name: 'Frango Inteiro', description: 'Frango inteiro Kg', category: cats[1]._id, price: 4.29, stock: 45, supermarket: super2._id, image: '/images/products/Pingo Doce/frango.png' },
+        { name: 'Carne Picada', description: 'Carne picada bovino Kg', category: cats[1]._id, price: 4.99, stock: 35, supermarket: super2._id, image: '/images/products/Pingo Doce/carnePicada.png' },
 
-        {
-            name: 'Detergente', description: 'Detergente da loiça', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Amaciador', description: 'Amaciador da roupa', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Lixivia', description: 'Lixivia da roupa', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Limpador', description: 'Limpador de vidros', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Desinfetante', description: 'Desinfetante de superfícies', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Esfregão', description: 'Esfregão da loiça', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Luvas', description: 'Luvas de borracha', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Panos', description: 'Panos de limpeza', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Esfregona', description: 'Esfregona de limpeza', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Balde', description: 'Balde de limpeza', category: cats[9]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Maria', description: 'Bolachas Maria', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Chocolate', description: 'Bolachas Chocolate', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Manteiga', description: 'Bolachas Manteiga', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Integrais', description: 'Bolachas Integrais', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Cereais', description: 'Bolachas Cereais', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Coco', description: 'Bolachas Coco', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Limão', description: 'Bolachas Limão', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Laranja', description: 'Bolachas Laranja', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Baunilha', description: 'Bolachas Baunilha', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Bolachas Canela', description: 'Bolachas Canela', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Coca Cola', description: 'Coca Cola', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Pepsi', description: 'Pepsi', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Fanta', description: 'Fanta', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sprite', description: 'Sprite', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumol', description: 'Sumol', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Compal', description: 'Compal', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Água', description: 'Água', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Laranja', description: 'Sumo de Laranja', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Maçã', description: 'Sumo de Maçã', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Uva', description: 'Sumo de Uva', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Pêssego', description: 'Sumo de Pêssego', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Manga', description: 'Sumo de Manga', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Abacaxi', description: 'Sumo de Abacaxi', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Melancia', description: 'Sumo de Melancia', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Melão', description: 'Sumo de Melão', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
-        {
-            name: 'Sumo de Morango', description: 'Sumo de Morango', category: cats[5]._id,
-            price: 1.99, stock: 100, supermarket: super2._id
-        },
+        // Peixe (cats[2])
+        { name: 'Salmão', description: 'Salmão fresco Kg', category: cats[2]._id, price: 9.99, stock: 30, supermarket: super1._id },
+        { name: 'Bacalhau', description: 'Bacalhau seco Kg', category: cats[2]._id, price: 12.99, stock: 25, supermarket: super1._id },
+        { name: 'Salmão', description: 'Salmão fresco Kg', category: cats[2]._id, price: 10.49, stock: 20, supermarket: super2._id, image: '/images/products/Pingo Doce/salmao.png' },
+        { name: 'Bacalhau', description: 'Bacalhau seco Kg', category: cats[2]._id, price: 11.99, stock: 30, supermarket: super2._id, image: '/images/products/Pingo Doce/bacalhau.png' },
+
+        // Laticínios (cats[3])
+        { name: 'Leite', description: 'Leite meio-gordo 1L', category: cats[3]._id, price: 0.89, stock: 200, supermarket: super1._id },
+        { name: 'Iogurte Natural', description: 'Iogurte natural 4x125g', category: cats[3]._id, price: 1.29, stock: 80, supermarket: super1._id },
+        { name: 'Leite', description: 'Leite meio-gordo 1L', category: cats[3]._id, price: 0.95, stock: 150, supermarket: super2._id, image: '/images/products/Pingo Doce/leite.png' },
+        { name: 'Iogurte Natural', description: 'Iogurte natural 4x125g', category: cats[3]._id, price: 1.19, stock: 90, supermarket: super2._id, image: '/images/products/Pingo Doce/iogurteNatural.png' },
+
+        // Padaria (cats[4])
+        { name: 'Pão de Forma', description: 'Pão de forma integral', category: cats[4]._id, price: 1.59, stock: 60, supermarket: super1._id },
+        { name: 'Croissant', description: 'Croissant manteiga', category: cats[4]._id, price: 0.69, stock: 80, supermarket: super1._id },
+        { name: 'Pão de Forma', description: 'Pão de forma integral', category: cats[4]._id, price: 1.39, stock: 70, supermarket: super2._id, image: '/images/products/Pingo Doce/paoForma.png' },
+        { name: 'Croissant', description: 'Croissant manteiga', category: cats[4]._id, price: 0.79, stock: 60, supermarket: super2._id, image: '/images/products/Pingo Doce/croissant.png' },
+
+        // Bebidas (cats[5])
+        { name: 'Coca Cola', description: 'Coca Cola 1.5L', category: cats[5]._id, price: 1.79, stock: 100, supermarket: super1._id },
+        { name: 'Água', description: 'Água mineral 1.5L', category: cats[5]._id, price: 0.39, stock: 200, supermarket: super1._id },
+        { name: 'Coca Cola', description: 'Coca Cola 1.5L', category: cats[5]._id, price: 1.89, stock: 90, supermarket: super2._id, image: '/images/products/Pingo Doce/cocacola.png' },
+        { name: 'Água', description: 'Água mineral 1.5L', category: cats[5]._id, price: 0.29, stock: 180, supermarket: super2._id, image: '/images/products/Pingo Doce/agua.png' },
+
+        // Congelados (cats[6])
+        { name: 'Pizza Congelada', description: 'Pizza margherita', category: cats[6]._id, price: 2.99, stock: 40, supermarket: super1._id },
+        { name: 'Gelado Baunilha', description: 'Gelado baunilha 1L', category: cats[6]._id, price: 3.49, stock: 35, supermarket: super1._id },
+        { name: 'Pizza Congelada', description: 'Pizza margherita', category: cats[6]._id, price: 3.29, stock: 30, supermarket: super2._id, image: '/images/products/Pingo Doce/pizza.png' },
+        { name: 'Gelado Baunilha', description: 'Gelado baunilha 1L', category: cats[6]._id, price: 3.19, stock: 40, supermarket: super2._id, image: '/images/products/Pingo Doce/geladoBaunilha.png' },
+
+        // Mercearia (cats[7])
+        { name: 'Arroz', description: 'Arroz agulha 1Kg', category: cats[7]._id, price: 1.29, stock: 100, supermarket: super1._id },
+        { name: 'Massa Esparguete', description: 'Esparguete 500g', category: cats[7]._id, price: 0.89, stock: 120, supermarket: super1._id },
+        { name: 'Arroz', description: 'Arroz agulha 1Kg', category: cats[7]._id, price: 1.49, stock: 80, supermarket: super2._id, image: '/images/products/Pingo Doce/arroz.png' },
+        { name: 'Massa Esparguete', description: 'Esparguete 500g', category: cats[7]._id, price: 0.79, stock: 100, supermarket: super2._id, image: '/images/products/Pingo Doce/massaEsparguete.png' },
+
+        // Higiene (cats[8])
+        { name: 'Champô', description: 'Champô cabelo normal', category: cats[8]._id, price: 2.49, stock: 60, supermarket: super1._id },
+        { name: 'Pasta de Dentes', description: 'Pasta dentífrica 75ml', category: cats[8]._id, price: 1.99, stock: 80, supermarket: super1._id },
+        { name: 'Champô', description: 'Champô cabelo normal', category: cats[8]._id, price: 2.29, stock: 50, supermarket: super2._id, image: '/images/products/Pingo Doce/shampoo.png' },
+        { name: 'Pasta de Dentes', description: 'Pasta dentífrica 75ml', category: cats[8]._id, price: 2.19, stock: 70, supermarket: super2._id, image: '/images/products/Pingo Doce/pastaDentes.png' },
+
+        // Limpeza (cats[9])
+        { name: 'Detergente', description: 'Detergente da loiça 1L', category: cats[9]._id, price: 1.49, stock: 70, supermarket: super1._id },
+        { name: 'Lixívia', description: 'Lixívia 2L', category: cats[9]._id, price: 1.99, stock: 50, supermarket: super1._id },
+        { name: 'Detergente', description: 'Detergente da loiça 1L', category: cats[9]._id, price: 1.69, stock: 60, supermarket: super2._id, image: '/images/products/Pingo Doce/detergente.png' },
+        { name: 'Lixívia', description: 'Lixívia 2L', category: cats[9]._id, price: 1.79, stock: 55, supermarket: super2._id, image: '/images/products/Pingo Doce/lixiviaPingo.png' },
     ]);
 
     console.log('Produtos criados');
