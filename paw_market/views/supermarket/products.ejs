@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestão de Produtos - SupermarketHUB">
+    <title>Produtos - SupermarketHUB</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/supermarket" class="sidebar-link">&#128202; Dashboard</a>
+            <a href="/supermarket/profile" class="sidebar-link">&#127978; Perfil</a>
+            <a href="/supermarket/products" class="sidebar-link active">&#128722; Produtos</a>
+            <a href="/supermarket/orders" class="sidebar-link">&#128203; Encomendas</a>
+            <a href="/supermarket/pos" class="sidebar-link">&#128180; Ponto de Venda</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">&#128682; Sair da Conta</a>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <main class="main-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h1 style="color: #1a237e;">Os Meus Produtos</h1>
+                <a href="/supermarket/products/new" style="background: #1a237e; color: white; text-decoration: none; padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 14px;">+ Novo Produto</a>
+            </div>
+
+            <% if (products.length === 0) { %>
+                <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <p style="color: #666;">Ainda não tens produtos. <a href="/supermarket/products/new" style="color: #1a237e;">Adiciona o primeiro!</a></p>
+                </div>
+            <% } else { %>
+                <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="text-align: left; padding: 12px; color: #666; font-size: 14px;">Nome</th>
+                                <th style="text-align: left; padding: 12px; color: #666; font-size: 14px;">Categoria</th>
+                                <th style="text-align: right; padding: 12px; color: #666; font-size: 14px;">Preço</th>
+                                <th style="text-align: right; padding: 12px; color: #666; font-size: 14px;">Stock</th>
+                                <th style="text-align: center; padding: 12px; color: #666; font-size: 14px;">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% products.forEach(function(p) { %>
+                            <tr style="border-bottom: 1px solid #f0f0f0;">
+                                <td style="padding: 12px; font-weight: 600;"><%= p.name %></td>
+                                <td style="padding: 12px; color: #555;"><%= p.category ? p.category.name : '—' %></td>
+                                <td style="padding: 12px; text-align: right; font-weight: bold; color: #1a237e;"><%= p.price.toFixed(2) %> €</td>
+                                <td style="padding: 12px; text-align: right;"><%= p.stock %></td>
+                                <td style="padding: 12px; text-align: center;">
+                                    <% if (p.stock > 0) { %>
+                                        <span style="background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Disponível</span>
+                                    <% } else { %>
+                                        <span style="background: #ffebee; color: #c62828; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Sem Stock</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>
