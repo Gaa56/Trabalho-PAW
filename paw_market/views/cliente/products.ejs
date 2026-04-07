@@ -91,7 +91,7 @@
                 <% } %>
 
                     <!-- LISTA DE PRODUTOS -->
-                    <% if (products.length===0) { %>
+                    <% if (products.length===0) { %> <!-- Se nao houver produtos -->
                         <div style="text-align: center; padding: 60px 20px; color: #888;">
                             <p style="font-size: 18px;">Nenhum produto encontrado.</p>
                             <p style="font-size: 14px; margin-top: 8px;">Tenta mudar os filtros de pesquisa.</p>
@@ -100,6 +100,8 @@
                             <div
                                 style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;">
                                 <% products.forEach(function(product) { %>
+
+                                    <!-- A transição quando o utilizador passa o mouse no produto, faz com que ele suba um pouco e a sombra aumente -->
                                     <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s;"
                                         onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
                                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">

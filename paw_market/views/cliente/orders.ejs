@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
@@ -34,67 +36,90 @@
 
             <h1 style="color: #1a237e; margin-bottom: 24px;">Minhas Encomendas</h1>
 
-            <% if (orders.length === 0) { %>
-            <div style="text-align: center; padding: 60px 20px;">
-                <span style="font-size: 64px;">📦</span>
-                <p style="font-size: 18px; color: #888; margin-top: 16px;">Ainda não fizeste nenhuma encomenda.</p>
-                <a href="/cliente/products" style="display: inline-block; margin-top: 16px; padding: 12px 28px; background: #1a237e; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                    Ver Produtos
-                </a>
-            </div>
-            <% } else { %>
+            <% if (orders.length===0) { %>
+                <div style="text-align: center; padding: 60px 20px;">
+                    <p style="font-size: 18px; color: #888; margin-top: 16px;">Ainda não fizeste nenhuma encomenda.</p>
+                    <a href="/cliente/products"
+                        style="display: inline-block; margin-top: 16px; padding: 12px 28px; background: #1a237e; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                        Ver Produtos
+                    </a>
+                </div>
+                <% } else { %>
 
-            <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #eee;">
-                            <th style="text-align: left; padding: 12px; color: #666; font-size: 13px;">Encomenda</th>
-                            <th style="text-align: left; padding: 12px; color: #666; font-size: 13px;">Supermercado</th>
-                            <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Itens</th>
-                            <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Estado</th>
-                            <th style="text-align: right; padding: 12px; color: #666; font-size: 13px;">Total</th>
-                            <th style="text-align: right; padding: 12px; color: #666; font-size: 13px;">Data</th>
-                            <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% orders.forEach(function(order) { %>
-                        <tr style="border-bottom: 1px solid #f0f0f0;">
-                            <td style="padding: 14px 12px;">
-                                <a href="/cliente/orders/<%= order._id %>" style="color: #1a237e; font-weight: 600; text-decoration: none;">
-                                    #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                </a>
-                            </td>
-                            <td style="padding: 14px 12px;"><%= order.supermarket ? order.supermarket.name : 'N/A' %></td>
-                            <td style="text-align: center; padding: 14px 12px;"><%= order.items.length %></td>
-                            <td style="text-align: center; padding: 14px 12px;">
-                                <span style="padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+                    <div
+                        style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #eee;">
+                                    <th style="text-align: left; padding: 12px; color: #666; font-size: 13px;">Encomenda
+                                    </th>
+                                    <th style="text-align: left; padding: 12px; color: #666; font-size: 13px;">
+                                        Supermercado</th>
+                                    <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Itens
+                                    </th>
+                                    <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Estado
+                                    </th>
+                                    <th style="text-align: right; padding: 12px; color: #666; font-size: 13px;">Total
+                                    </th>
+                                    <th style="text-align: right; padding: 12px; color: #666; font-size: 13px;">Data
+                                    </th>
+                                    <th style="text-align: center; padding: 12px; color: #666; font-size: 13px;">Ações
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% orders.forEach(function(order) { %>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 14px 12px;">
+                                            <a href="/cliente/orders/<%= order._id %>"
+                                                style="color: #1a237e; font-weight: 600; text-decoration: none;">
+                                                #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                            </a>
+                                        </td>
+                                        <td style="padding: 14px 12px;">
+                                            <%= order.supermarket ? order.supermarket.name : 'N/A' %>
+                                        </td>
+                                        <td style="text-align: center; padding: 14px 12px;">
+                                            <%= order.items.length %>
+                                        </td>
+                                        <td style="text-align: center; padding: 14px 12px;">
+                                            <span
+                                                style="padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
                                     background: <%= order.status === 'entregue' ? '#e8f5e9' : order.status === 'cancelada' ? '#ffebee' : order.status === 'pendente' ? '#fff3e0' : '#e3f2fd' %>;
                                     color: <%= order.status === 'entregue' ? '#2e7d32' : order.status === 'cancelada' ? '#c62828' : order.status === 'pendente' ? '#e65100' : '#1565c0' %>;">
-                                    <%= order.status %>
-                                </span>
-                            </td>
-                            <td style="text-align: right; padding: 14px 12px; font-weight: 700; color: #1a237e;"><%= order.totalAmount.toFixed(2) %> €</td>
-                            <td style="text-align: right; padding: 14px 12px; color: #888; font-size: 13px;"><%= order.createdAt.toLocaleDateString('pt-PT') %></td>
-                            <td style="text-align: center; padding: 14px 12px;">
-                                <% if (['pendente', 'confirmada'].includes(order.status)) { %>
-                                <form method="POST" action="/cliente/orders/<%= order._id %>/cancel" style="display: inline;">
-                                    <button type="submit" style="padding: 6px 14px; background: #ffebee; color: #c62828; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
-                                        Cancelar
-                                    </button>
-                                </form>
-                                <% } %>
-                            </td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                                                <%= order.status %>
+                                            </span>
+                                        </td>
+                                        <td
+                                            style="text-align: right; padding: 14px 12px; font-weight: 700; color: #1a237e;">
+                                            <%= order.totalAmount.toFixed(2) %> €
+                                        </td>
+                                        <td
+                                            style="text-align: right; padding: 14px 12px; color: #888; font-size: 13px;">
+                                            <%= order.createdAt.toLocaleDateString('pt-PT') %>
+                                        </td>
+                                        <td style="text-align: center; padding: 14px 12px;">
+                                            <% if (['pendente', 'confirmada' ].includes(order.status)) { %>
+                                                <form method="POST" action="/cliente/orders/<%= order._id %>/cancel"
+                                                    style="display: inline;">
+                                                    <button type="submit"
+                                                        style="padding: 6px 14px; background: #ffebee; color: #c62828; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                                                        Cancelar
+                                                    </button>
+                                                </form>
+                                                <% } %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <% } %>
+                    <% } %>
 
         </main>
     </div>
 
 </body>
+
 </html>
