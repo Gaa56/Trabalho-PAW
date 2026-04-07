@@ -20,4 +20,9 @@ router.get('/products', supermarketController.getProducts);
 router.get('/products/new', supermarketController.getNewProduct);
 router.post('/products/new', supermarketController.postNewProduct);
 
+// Ponto de Venda (POS)
+router.get('/pos', supermarketController.getPOS);
+router.post('/pos', supermarketController.postPOS);
+
+
 module.exports = router;

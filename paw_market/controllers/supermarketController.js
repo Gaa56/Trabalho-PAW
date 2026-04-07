@@ -57,3 +57,77 @@ exports.postNewProduct = async (req, res) => {
         res.status(500).send("Erro ao criar produto.");
     }
 };
+// Renderizar ecrã de Ponto de Venda com listagem de produtos
+exports.getPOS = async (req, res) => {
+    try {
+        const superm = await Supermarket.findOne({ owner: req.session.user.id });
+        const products = await Product.find({ supermarket: superm._id });
+        res.render('supermarket/pos', { user: req.session.user, products });
+    } catch (error) {
+        res.status(500).send("Erro ao carregar o POS.");
+    }
+};
+
+// Processar a venda em caixa
+exports.postPOS = async (req, res) => {
+    try {
+        const superm = await Supermarket.findOne({ owner: req.session.user.id });
+        const { clientNif, clientName, productId, quantity } = req.body;
+        
+        // 1. Procurar ou Criar o Cliente
+        const User = require('../models/User');
+        let client = await User.findOne({ nif: clientNif, role: 'cliente' });
+        
+        if (!client) {
+            // Se não existe, cria um cliente temporário ou novo baseado nos dados
+            client = new User({
+                name: clientName || "Cliente Loja",
+                email: `cliente_${Date.now()}@loja.pt`, // Email placeholder porque o modelo exige
+                password: 'pos_password',
+                phone: '000000000',
+                nif: clientNif,
+                address: 'Compra em Loja',
+                role: 'cliente'
+            });
+            await client.save();
+        }
+
+        // 2. Recuperar o produto e validar preço
+        const product = await Product.findById(productId);
+        if(!product || product.stock < quantity) {
+            return res.status(400).send("Produto não encontrado ou stock insuficiente.");
+        }
+
+        // 3. Atualizar stock
+        product.stock -= quantity;
+        await product.save();
+
+        // 4. Registar a encomenda (Venda em Caixa)
+        const Order = require('../models/Order');
+        const total = product.price * quantity;
+
+        const newOrder = new Order({
+            customer: client._id,
+            supermarket: superm._id,
+            items: [{
+                product: product._id,
+                name: product.name,
+                quantity: quantity,
+                priceAtTime: product.price
+            }],
+            totalAmount: total,
+            deliveryMethod: 'pickup',
+            status: 'entregue', // Entregue na hora
+            type: 'pos',
+            confirmedAt: Date.now(),
+            deliveredAt: Date.now()
+        });
+
+        await newOrder.save();
+        res.redirect('/supermarket/pos'); // Volta para o POS limpar
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro ao processar venda em caixa.");
+    }
+};

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Entregas Disponíveis</title>
+</head>
+<body>
+    <h1>Entregas Disponíveis</h1>
+    <nav>
+        <a href="/estafeta">Dashboard</a> |
+        <a href="/estafeta/history">Histórico</a> |
+        <a href="/logout">Sair</a>
+    </nav>
+    <hr>
+
+    <% if (hasActive) { %>
+        <div style="background:#fff3cd; border:1px solid #ffc107; padding:10px; border-radius:6px;">
+            ⚠️ Já tens uma entrega em curso. Entrega-a antes de aceitares outra.
+            <a href="/estafeta">Ver entrega ativa →</a>
+        </div>
+    <% } %>
+
+    <% if (deliveries.length === 0) { %>
+        <p>Nenhuma entrega disponível de momento.</p>
+    <% } else { %>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Supermercado</th>
+                    <th>Cliente</th>
+                    <th>Endereço Entrega</th>
+                    <th>Total</th>
+                    <th>Data</th>
+                    <th>Aceitar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% deliveries.forEach(d => { %>
+                    <tr>
+                        <td>#<%= d._id.toString().slice(-6).toUpperCase() %></td>
+                        <td><%= d.supermarket ? d.supermarket.name : '—' %></td>
+                        <td><%= d.customer ? d.customer.name : '—' %></td>
+                        <td><%= d.customer ? d.customer.address : '—' %></td>
+                        <td><%= d.totalAmount.toFixed(2) %> €</td>
+                        <td><%= new Date(d.createdAt).toLocaleDateString('pt-PT') %></td>
+                        <td>
+                            <% if (!hasActive) { %>
+                                <form method="POST" action="/estafeta/deliveries/<%= d._id %>/accept">
+                                    <button type="submit" style="background:green; color:white;">Aceitar</button>
+                                </form>
+                            <% } else { %>
+                                <em>—</em>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</body>
+</html>
