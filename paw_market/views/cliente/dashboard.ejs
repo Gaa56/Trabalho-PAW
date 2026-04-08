@@ -9,6 +9,18 @@
     </title>
     <!-- Ligação ao novo CSS exclusivo do Dashboard com largura limitada! -->
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <style>
+        .status-entregue { background-color: #e8f5e9; color: #2e7d32; }
+        .status-cancelada { background-color: #ffebee; color: #c62828; }
+        .status-default { background-color: #e3f2fd; color: #1565c0; }
+        .status-badge-inline {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
@@ -111,10 +123,12 @@
                             </td>
                             <!-- Estado da encomenda -->
                             <td style="padding: 10px;">
-                                <span
-                                    style="padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;
-                                        background: <%= order.status === 'entregue' ? '#e8f5e9' : order.status === 'cancelada' ? '#ffebee' : '#e3f2fd' %>;
-                                        color: <%= order.status === 'entregue' ? '#2e7d32' : order.status === 'cancelada' ? '#c62828' : '#1565c0' %>;">
+                                <% 
+                                    let statusClass = 'status-default';
+                                    if (order.status === 'entregue') statusClass = 'status-entregue';
+                                    else if (order.status === 'cancelada') statusClass = 'status-cancelada';
+                                %>
+                                <span class="status-badge-inline <%= statusClass %>">
                                     <!-- Se estiver entregue fica verde, se estiver cancelada fica vermelho, se estiver em processamento fica azul -->
                                     <%= order.status %>
                                 </span>

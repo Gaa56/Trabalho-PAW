@@ -1,9 +1,45 @@
 const Supermarket = require('../models/Supermarket');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const Order = require('../models/Order');
 
 exports.getDashboard = async (req, res) => {
-    res.render('supermarket/dashboard', { user: req.session.user });
+    try {
+        const superm = await Supermarket.findOne({ owner: req.session.user.id });
+        
+        // Contar total de encomendas do supermercado
+        const totalOrders = await Order.countDocuments({ supermarket: superm._id });
+
+        // Produtos mais vendidos (agregação)
+        const topProducts = await Order.aggregate([
+            { $match: { supermarket: superm._id } },
+            { $unwind: '$items' },
+            { $group: { _id: '$items.name', totalQty: { $sum: '$items.quantity' } } },
+            { $sort: { totalQty: -1 } },
+            { $limit: 5 }
+        ]);
+
+        // Últimas encomendas
+        const recentOrders = await Order.find({ supermarket: superm._id })
+            .populate('customer', 'name email')
+            .sort({ createdAt: -1 })
+            .limit(5);
+
+        // Contar total de produtos
+        const totalProducts = await Product.countDocuments({ supermarket: superm._id });
+
+        res.render('supermarket/dashboard', {
+            user: req.session.user,
+            superm,
+            totalOrders,
+            totalProducts,
+            topProducts,
+            recentOrders
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro ao carregar dashboard.");
+    }
 };
 
 exports.getProfile = async (req, res) => {
