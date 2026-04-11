@@ -25,4 +25,9 @@ router.get('/pos', supermarketController.getPOS);
 router.post('/pos', supermarketController.postPOS);
 
 
+// Encomendas do supermercado
+router.get('/orders', supermarketController.getOrders);
+router.post('/orders/:id/confirm', supermarketController.confirmOrder);
+router.post('/orders/:id/prepare', supermarketController.prepareOrder);
+
 module.exports = router;

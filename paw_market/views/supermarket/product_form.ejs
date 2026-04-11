@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Produto - Supermercado</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+
+<body>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/supermarket" class="sidebar-link">Dashboard</a>
+            <a href="/supermarket/profile" class="sidebar-link">Perfil</a>
+            <a href="/supermarket/products" class="sidebar-link active">Produtos</a>
+            <a href="/supermarket/pos" class="sidebar-link">Ponto de Venda</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="page-wrapper">
+        <main class="main-container">
+
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <h1 class="hero-title">Novo Produto</h1>
+                    <p style="color: #666; font-size: 16px; margin-top: 8px;">Adicione um novo produto à sua loja</p>
+                </div>
+            </section>
+
+            <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: 30px; margin-bottom: 30px; max-width: 600px;">
+
+                <form method="POST" action="/supermarket/products/new" enctype="multipart/form-data">
+
+                    <!-- Nome do Produto -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Nome do Produto *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Descrição -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Descrição</label>
+                        <textarea name="description" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: Arial; font-size: 14px; resize: vertical; min-height: 100px; box-sizing: border-box;"></textarea>
+                    </div>
+
+                    <!-- Categoria -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Categoria *</label>
+                        <select name="category" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                            <option value="">-- Selecione uma categoria --</option>
+                            <% if (categories && categories.length > 0) { %>
+                                <% categories.forEach(function(cat) { %>
+                                    <option value="<%= cat._id %>"><%= cat.name %></option>
+                                <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <!-- Preço -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Preço (€) *</label>
+                        <input type="number" name="price" step="0.01" min="0" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Stock -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Stock (unidades) *</label>
+                        <input type="number" name="stock" min="0" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+
+                    <!-- Imagem -->
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600;">Imagem do Produto</label>
+                        <input type="file" name="image" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        <small style="color: #999; display: block; margin-top: 5px;">Formatos aceitos: JPG, PNG, GIF</small>
+                    </div>
+
+                    <!-- Botões -->
+                    <div style="display: flex; gap: 10px; margin-top: 30px;">
+                        <button type="submit" style="padding: 12px 24px; background: #1a237e; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 16px;">Criar Produto</button>
+                        <a href="/supermarket/products" style="padding: 12px 24px; background: #6c757d; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;">Cancelar</a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
