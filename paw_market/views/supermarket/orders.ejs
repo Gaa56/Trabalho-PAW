@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encomendas - Supermercado</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <style>
+        .order-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .order-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        .order-id { color: #666; font-size: 14px; }
+        .order-total { font-size: 20px; font-weight: bold; color: #1a237e; }
+        .order-details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-confirm { padding: 10px 16px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; }
+        .btn-confirm:hover { background: #218838; }
+        .btn-prepare { padding: 10px 16px; background: #ffc107; color: #212529; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; }
+        .btn-prepare:hover { background: #e0a800; }
+        
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .status-pendente { background-color: #e2e3e5; color: #383d41; }
+        .status-confirmada { background-color: #cce5ff; color: #004085; }
+        .status-em-preparacao { background-color: #fff3cd; color: #856404; }
+        .status-pronta { background-color: #d1ecf1; color: #0c5460; }
+        .status-entregue { background-color: #d4edda; color: #155724; }
+        .status-cancelada { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-super">Supermarket</span>
+            <span class="brand-hub">HUB</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/supermarket" class="sidebar-link">Dashboard</a>
+            <a href="/supermarket/profile" class="sidebar-link">Perfil</a>
+            <a href="/supermarket/products" class="sidebar-link">Produtos</a>
+            <a href="/supermarket/orders" class="sidebar-link active">Encomendas</a>
+            <a href="/supermarket/pos" class="sidebar-link">Ponto de Venda</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/logout" class="sidebar-logout">Sair da Conta</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="page-wrapper">
+        <main class="main-container">
+
+            <section class="hero-banner">
+                <div class="hero-content">
+                    <h1 class="hero-title">Gestão de Encomendas</h1>
+                    <p style="color: #93c5fd; font-size: 16px; margin-top: 8px;">Acompanhe e gira as encomendas online dos clientes</p>
+                </div>
+            </section>
+
+            <div style="margin-top: 30px;">
+                <% if (orders && orders.length > 0) { %>
+                    <% orders.forEach(order => { %>
+                        <div class="order-card">
+                            <div class="order-header">
+                                <div>
+                                    <h3 style="margin: 0 0 5px 0;">Encomenda para <%= order.customer ? order.customer.name : 'Cliente Anónimo' %></h3>
+                                    <span class="order-id">Data: <%= new Date(order.createdAt).toLocaleString('pt-PT') %></span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <% 
+                                        let statusClass = 'status-pendente';
+                                        let statusText = order.status;
+                                        if (order.status === 'pendente') statusClass = 'status-pendente';
+                                        else if (order.status === 'confirmada') statusClass = 'status-confirmada';
+                                        else if (order.status === 'em preparação') statusClass = 'status-em-preparacao';
+                                        else if (order.status === 'pronta') statusClass = 'status-pronta';
+                                        else if (order.status === 'entregue') statusClass = 'status-entregue';
+                                        else if (order.status === 'cancelada') statusClass = 'status-cancelada';
+                                    %>
+                                    <div class="status-badge <%= statusClass %>" style="margin-bottom: 5px;"><%= statusText.toUpperCase() %></div>
+                                    <div class="order-total"><%= order.totalAmount.toFixed(2) %>€</div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-details">
+                                <div>
+                                    <h4 style="margin: 0 0 10px 0; color: #333;">Artigos:</h4>
+                                    <ul style="margin: 0; padding-left: 20px; color: #666;">
+                                        <% order.items.forEach(item => { %>
+                                            <li><%= item.quantity %>x <%= item.name %> (<%= (item.priceAtTime * item.quantity).toFixed(2) %>€)</li>
+                                        <% }) %>
+                                    </ul>
+                                </div>
+                                
+                                <div style="display: flex; gap: 10px; align-items: flex-end; justify-content: flex-end;">
+                                    <% if (order.status === 'pendente') { %>
+                                        <form method="POST" action="/supermarket/orders/<%= order._id %>/confirm">
+                                            <button type="submit" class="btn-confirm">✓ Aceitar Encomenda</button>
+                                        </form>
+                                    <% } %>
+                                    
+                                    <% if (order.status === 'confirmada') { %>
+                                        <form method="POST" action="/supermarket/orders/<%= order._id %>/prepare">
+                                            <button type="submit" class="btn-prepare">Começar Preparação</button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; color: #666;">
+                        <p style="margin: 0; font-size: 16px;">Ainda não existem encomendas para a sua loja.</p>
+                    </div>
+                <% } %>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
