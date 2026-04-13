@@ -167,3 +167,39 @@ exports.postPOS = async (req, res) => {
         res.status(500).send("Erro ao processar venda em caixa.");
     }
 };
+
+// Listar encomendas recebidas pelo supermercado
+exports.getOrders = async (req, res) => {
+    try {
+        const superm = await Supermarket.findOne({ owner: req.session.user.id });
+        const Order = require('../models/Order');
+        const orders = await Order.find({ supermarket: superm._id, type: 'online' })
+            .populate('customer', 'name email')
+            .sort({ createdAt: -1 });
+        res.render('supermarket/orders', { user: req.session.user, orders });
+    } catch (error) {
+        res.status(500).send("Erro ao carregar encomendas.");
+    }
+};
+
+// Confirmar encomenda
+exports.confirmOrder = async (req, res) => {
+    try {
+        const Order = require('../models/Order');
+        await Order.findByIdAndUpdate(req.params.id, { status: 'confirmada', confirmedAt: new Date() });
+        res.redirect('/supermarket/orders');
+    } catch (error) {
+        res.status(500).send("Erro ao confirmar encomenda.");
+    }
+};
+
+// Marcar como em preparação
+exports.prepareOrder = async (req, res) => {
+    try {
+        const Order = require('../models/Order');
+        await Order.findByIdAndUpdate(req.params.id, { status: 'em preparação' });
+        res.redirect('/supermarket/orders');
+    } catch (error) {
+        res.status(500).send("Erro ao atualizar encomenda.");
+    }
+};

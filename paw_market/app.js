@@ -12,6 +12,8 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var supermarketRouter = require('./routes/supermarket');
 var clienteRouter = require('./routes/cliente');
+var adminRouter = require('./routes/admin');
+var estafetaRouter = require('./routes/estafeta');
 
 var app = express();
 
@@ -49,6 +51,8 @@ app.use('/users', usersRouter);
 app.use('/', authRouter);
 app.use('/supermarket', supermarketRouter);
 app.use('/cliente', clienteRouter);
+app.use('/admin', adminRouter);
+app.use('/estafeta', estafetaRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -15,10 +15,13 @@ router.get('/', function (req, res, next) {
     return res.redirect('/cliente');
   } else if (role === 'supermercado') {
     return res.redirect('/supermarket');
+  } else if (role === 'admin') {
+    return res.redirect('/admin');
+  } else if (role === 'estafeta') {
+    return res.redirect('/estafeta');
   } else {
-    // Para as outras roles (Supermercado, Estafeta, Admin) que faremos depois, mostra o ecrã basico
+    // Para as outras roles, mostra o ecrã basico
     return res.render('index', { title: 'Bem-vindo ao Dashboard - ' + role });
   }
 });
-
 module.exports = router;
