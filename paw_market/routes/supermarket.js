@@ -17,6 +17,7 @@ router.post('/profile', supermarketController.postProfile);
 
 // Produtos
 router.get('/products', supermarketController.getProducts);
+router.get('/products/:id', supermarketController.getProduct);
 router.get('/products/new', supermarketController.getNewProduct);
 router.post('/products/new', supermarketController.postNewProduct);
 

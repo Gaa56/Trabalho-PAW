@@ -74,6 +74,19 @@ exports.getProducts = async (req, res) => {
     }
 };
 
+// Buscar um produto específico por ID (API)
+exports.getProduct = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id).populate('category');
+        if (!product) {
+            return res.status(404).json({ error: 'Produto não encontrado.' });
+        }
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar produto.' });
+    }
+};
+
 exports.getNewProduct = async (req, res) => {
     const categories = await Category.find();
     res.render('supermarket/product_form', { user: req.session.user, categories });
