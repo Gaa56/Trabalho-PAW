@@ -1,0 +1,23 @@
+==================================================================
+RESUMO DA VIEW: CARRINHO DE COMPRAS
+==================================================================
+Ficheiro: paw_market/views/cliente/cart.ejs
+
+Esta página serve para o cliente gerir os produtos que pretende comprar antes de avançar para o pagamento.
+
+1. CARRINHO VAZIO VS CARRINHO CHEIO
+Se o tamanho da lista (cartItems.length) for zero, mostra um texto simpático "O teu carrinho está vazio." e um botão rápido para ir às compras.
+Caso contrário, constrói uma Tabela HTML com todos os produtos.
+
+2. A TABELA DO CARRINHO
+A tabela lista todos os itens guardados pelo cliente com os seus dados básicos (Nome, Supermercado, Preço Unitário).
+
+3. ATUALIZAÇÃO DE QUANTIDADES
+Na coluna "Qtd", não existe apenas um número morto só para visualizar. Existe um formulário (<form>) perfeitamente funcional para cada linha:
+- O campo escondido leva o ID do produto focado.
+- O campo numérico (`<input type="number">`) mostra a quantidade atual. Tem um limite máximo travado pela própria base de dados (`max="<%= item.product.stock %>"`), o que impede o cliente de pedir maldosamente 10 leites se o supermercado só tiver 5.
+- Ao clicar no botão pequenino do visto (✓), a loja envia essa alteração por POST para o `/cliente/cart/update` atualizar a quantidade global.
+
+4. REMOVER E TOTAL
+- Existe um simples link na coluna Ações que apaga de vez a fila inteira (`/cliente/cart/remove/...`).
+- No final, bem grande e limpo, mostra o calculo final numérico `<%= total %>` (já feito pelo BackEnd) e dispõe do derradeiro botão que leva o utilizador finalmente ao ecrã do Checkout.

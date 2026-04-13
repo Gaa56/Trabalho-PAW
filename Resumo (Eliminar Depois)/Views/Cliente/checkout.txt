@@ -1,0 +1,19 @@
+==================================================================
+RESUMO DA VIEW: CHECKOUT (FINALIZAR ENCOMENDA)
+==================================================================
+Ficheiro: paw_market/views/cliente/checkout.ejs
+
+É o último ecrã antes da confirmação cega da compra. A página principal divide-se logo em duas grandes áreas graças a este código flexível:
+`display: grid; grid-template-columns: 1fr 380px; gap: 24px;`
+A coluna da esquerda dilata o espaço o mais que pode (1fr), e a coluna da direita fica trancada e estreita com 380px de largura.
+
+1. COLUNA DA ESQUERDA: O RESUMO DA CONTA
+Percorre a lista do carrinho com um ciclo bastante reduzido e banal de texto. Tem um aspeto simples, servindo só de quadro principal ("conta tida") das peças finais da encomenda onde se atenta as quantidades x preços subtotais. Nada se envia ou clica aqui.
+
+2. COLUNA DA DIREITA: FORMULÁRIO DE ENTREGA
+O núcleo e a ação da página ficam na barra da direita. É um formulário (<form>) com método POST para fechar a compra.
+A magia deste ecrã é o facto de a visualização reagir em tempo-real às configurações atípicas desse único Supermercado:
+- Existem Ifs que perguntam ao Supermercado: "Tu aceitas pessoal a passar na tua frente de loja para levar sacos (`deliveryMethods.pickup`)?". Se o supermercado responder que Sim nas suas defínições, o EJS constrói esse pedacinho de radio button e desenha no ecrã como "Grátis".
+- A seguir volta a indagar se há suporte a estafetas externas (`deliveryMethods.courier`). Se sim, escreve a caixinha visual e vai logo somar ativamente ao texto a taxa extra (`supermarket.deliveryCost`) que irá ser cobrada para prefinir o cliente.
+
+Temos por fim, algo para precaver e ajudar a melhorar a usabilidade: o famigerado campo "Notas Extra". Uma robusta `<textarea>` desenhada sem rodeios para recados ("Toquem 3x", "Casa azul com portão", etc). Clicar no botão cá em baixo fechará por definitivo a encomenda.

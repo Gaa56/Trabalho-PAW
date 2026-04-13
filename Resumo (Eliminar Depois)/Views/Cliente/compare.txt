@@ -1,0 +1,45 @@
+==================================================================
+RESUMO DA VIEW: COMPARAÇÃO DE PREÇOS
+==================================================================
+Ficheiro: paw_market/views/cliente/compare.ejs
+
+Esta página serve para o cliente ver o mesmo produto em vários supermercados diferentes, ordenados do mais barato ao mais caro, para o ajudar a poupar de forma rápida.
+
+
+--------------------------------------------------
+1. ESTRUTURA GERAL E CABEÇALHO
+--------------------------------------------------
+A página tem a mesma barra lateral das outras páginas. No topo da área principal existe:
+- Um link simples (← Voltar aos Produtos) que redireciona o cliente para a página de produtos.
+- Um texto dinâmico que diz o nome do produto que está a ser analisado (ex: "Produto: Leite"). Este nome vem da variável EJS `<%= productName %>`.
+
+
+--------------------------------------------------
+2. O LAYOUT EM TABELA (<table>)
+--------------------------------------------------
+Ao contrário da página de produtos que usa uma grelha flexível com cartões (grid), a comparação é apresentada de forma mais séria e organizada (linhas horizontais) usando uma tabela HTML.
+A tabela é composta por:
+- <thead>: A cabeça da tabela com os títulos das colunas (Produto, Supermercado, Stock, Preço, Ação).
+- <tbody>: O corpo da tabela onde vão ser despejados os produtos todos alinhados debaixo das colunas respetivas.
+
+
+--------------------------------------------------
+3. O CICLO E A DISTINÇÃO DO MELHOR PREÇO
+--------------------------------------------------
+O ciclo das opções (`<% products.forEach(function(product, index) { %>`) percorre a lista de produtos. E atenção a um detalhe crucial: o controlador no Backend enviou esta lista já ordenada do produto mais barato até ao mais caro.
+
+Nesta página o ciclo traz algo novo, o `index`. O `index` é o número da posição (0, 1, 2, 3...) onde a listagem vai no momento. Na programação, as listas começam sempre no número ZERO.
+
+* A Mágica do "Melhor Preço" (if index === 0):
+Como a lista já vem organizada do mais barato para o mais caro, o "index 0" (o primeiríssimo nome a ser desenhado) é obrigatoriamente o produto mais barato.
+Por isso o EJS faz o teste `<% if (index === 0) { %>`. Se for mesmo o primeiro da lista, ele pinta a linha toda de verde suave e acrescenta uma etiqueta visual a dizer "Melhor Preço". Para o index 1, 2, 3... ele ignora e não aplica pinturas de fundo.
+
+
+--------------------------------------------------
+4. O BOTÃO DE ADICIONAR
+--------------------------------------------------
+No fim de cada linha da tabela existe a coluna "Ação" com um mini-formulário disfarçado.
+Funciona da mesma forma do que na página de produtos:
+- Usa o método POST para enviar os dados para o Carrinho.
+- Tem um `<input type="hidden">` com o ID secreto do produto selecionado.
+- Tem uma proteção CSS + Lógica de servidor que diz: Se o `product.stock` bater no zero, desativa o botão (desligando a possibilidade de clicar com a propruiedade `disabled`) e pinta-o de cinzento em vez de azul. Se houver stock, pinta de azul e ativa o clique.

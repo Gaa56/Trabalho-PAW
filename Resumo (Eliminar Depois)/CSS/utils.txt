@@ -152,3 +152,91 @@ UTILS
 * object-fit: cover
   Resumo: Faz a imagem preencher o espaço sem distorcer.
   Detalhe: Essencial para imagens de produtos! Garante que a foto ocupa a caixa toda (100% largura e altura) cortando os excessos em vez de ficar "esmagada".
+
+
+--------------------------------------------------
+7. TAGS HTML USADAS NO PROJETO
+--------------------------------------------------
+
+* <div>
+  Resumo: A "caixa" universal.
+  Detalhe: É um contentor genérico. Não tem nenhum aspeto visual sozinho, mas serve para embrulhar outras coisas (textos, botões, etc.) para que possas aplicar estilos CSS em grupo.
+
+* <form>
+  Resumo: Formulário de envio de dados.
+  Detalhe: Agrupa campos de preenchimento. Diz ao browser para agarrar nos dados preenchidos ali dentro e enviá-los para o servidor (backend) ao clicar no botão de submter (usando GET para pesquisas ou POST para gravar coisas).
+
+* <label>
+  Resumo: O título do campo.
+  Detalhe: É o textinho explicativo que metes junto de um campo de preenchimento (ex: "Pesquisar") para o cliente saber o que ali tem de fazer.
+
+* <input>
+  Resumo: Onde o cliente escreve/interage.
+  Detalhe: Usámos com type="text" (caixas de pesquisa/nomes), type="hidden" (esconder dados como IDs de produtos que só interessam ao servidor), ou type="radio" (as bolinhas de seleção do método de entrega).
+
+* <select> e <option>
+  Resumo: Menu Dropdown (lista pendente).
+  Detalhe: O <select> é o esqueleto caixa principal, e cada <option> é uma das escolhas disponíveis lá para dentro (ex: Filtro de Categorias).
+
+* <button>
+  Resumo: Botão clicável.
+  Detalhe: Serve para realizar ações. Se estiver dentro de um "form" e tiver type="submit", executa logo o envio dos dados.
+
+* <a>
+  Resumo: O identificador de links.
+  Detalhe: Transforma texto ou outros elementos num link que leva o utilizador para outra página (propriedade "href" define o destino). Usado no menu lateral.
+
+* <span>
+  Resumo: A "caixa" invisível para palavras justas.
+  Detalhe: Igual a uma <div> mas é "em linha" (inline). Serve para selecionares e decorares só uma palavrinha no meio de uma frase sem atirar todo o resto do texto para uma quebra de linha.
+
+* <img>
+  Resumo: Insere uma fotografia.
+  Detalhe: Carrega uma imagem pelo URL do "src" (source) e usa o "alt" para colocar uma descrição alternativa caso a imagem falhe a carregar ou para invisuais através dos leitores de ecrã.
+
+* <h1> / <h3> / <p>
+  Resumo: A hierarquia do texto.
+  Detalhe: <h1> é o Título gigante principal da página inteira (Ideal ter SÓ UM), <h3> são os subtítulos médios (ex: nomes de produtos nos cartões da loja), e <p> é texto banal de parágrafo de leitura corrida.
+
+--------------------------------------------------
+7. TAG HTML TABLE
+--------------------------------------------------
+
+* <table>
+  Resumo: A caixa principal da Tabela.
+  Detalhe: Serve como o "saco" gigante que vai agrupar e forçar tudo o que meterdes lá dentro a comportar-se com linhas e colunas rígidas (estilo folha de Excel).
+
+* <thead> e <tbody>
+  Resumo: As zonas organizacionais da Tabela.
+  Detalhe: Super úteis. O <thead> (Table Head) agrupa apenas os títulos das colunas lá em cima. O <tbody> (Table Body) agrupa as linhas do conteúdo real. Ajuda o código a separar os títulos dos produtos.
+
+* <tr>
+  Resumo: A linha que corta na horizontal.
+  Detalhe: Vem de "Table Row" (Linha da tabela). Sempre que abres um <tr>, o ecrã percebe que estás a criar uma nova fatia horizontal na tabela para lá enfiares dados.
+
+* <th>
+  Resumo: O bloco de Título.
+  Detalhe: Vem de "Table Header" (Cabeçalho da tabela). Usado estritamente na 1ª linha (no thead) para meter as palavras grossas que dizem ao utilizador o que é cada coluna (ex: "Preço", "Stock").
+
+* <td>
+  Resumo: O bloco de Dados normal.
+  Detalhe: Vem de "Table Data" (Dados da tabela). Usado dentro do <tbody>. Se a linha de cima tem 5 <th>, a tua linha de baixo tem de ter 5 <td> certinhos para os dados não ficarem tortos ou descarrilados.
+
+--------------------------------------------------
+8. O CICLO FOREACH NO EJS E OS SEUS PARÂMETROS
+--------------------------------------------------
+
+* products.forEach(function(a, b, c) { ... })
+  Resumo: O iterador rigoroso de listas.
+  Detalhe: O forEach é uma função cega do JavaScript que pega numa lista e despeja o seu conteúdo vezes sem conta. O grande segredo está NAS POSIÇÕES e não nos nomes das variáveis que inventamos!
+
+  - A Primeira Cadeira (a): 
+    Seja qual for a palavra que escrevas na 1ª posição (ex: product, item, batata), o motor do forEach vai atirar o VALOR / OBJETO real para dentro dessa variável. 
+  
+  - A Segunda Cadeira (b):
+    A 2ª posição está reservada nativamente para ser sempre o CONTADOR MATEMÁTICO do ciclo (0, 1, 2, 3...). Seja "index" ou "bolacha", essa variável vai receber sempre e apenas posições numéricas.
+
+  - A Terceira Cadeira (c):
+    Existe uma 3ª posição fantasma! Se adiciones uma terceira palavra (ex: function(product, index, lista)), essa posição devolverá sempre o Array Intacto (O "Saco de Compras" original inteiro).
+
+  

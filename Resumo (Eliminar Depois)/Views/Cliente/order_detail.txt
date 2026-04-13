@@ -1,0 +1,24 @@
+==================================================================
+RESUMO DA VIEW: DETALHES DA ENCOMENDA (O TALÃO EXTERIOR)
+==================================================================
+Ficheiro: paw_market/views/cliente/order_detail.ejs
+
+Esta view é um "Extrato Digital". Uma página imutável para ler compras passadas.
+
+1. TRATAMENTO INTELIGENTE DA LEITURA DO ID
+Já reparaste nas Bases de Dados, os identificadores nascem medonhos tipo `6612f0a...`. Este código EJS purifica isso debaixo do título principal com truques de JavaScript: `<%= order._id.toString().slice(-6).toUpperCase() %>`.
+Este encantamento quer essencialmente dizer: Pega no ID tenebroso, reduz tudo a uma palavra em texto (String), corta cerce os últimos 6 carateres esquecendo o restante barulho inicial (slice) e ergue-os em maiúscula plena. Fica algo chique tipo Encomenda #A4F9X2 para o ser humano ler.
+
+2. HISTÓRICO "CONGELADO" DOS PREÇOS (IMPORTANTE!)
+Ao percorrer a listagem das compras (`order.items.forEach`), as views reparam no `<%= item.priceAtTime %>`. Numa e-commerce séria tu não lês `product.price` num talão emitido no passado. Isso daria falhas enormes meses depois consoante a inflação variasse na listagem bruta dos stock ao vivo! Este pedacinho de EJS lê um preço histórico congelado por uma variável diferente aquando a data de carregar no Checkout. Transparência na transação para o auditor nunca avariar!
+
+3. CORES INTELIGENTES NO ESTADO (O TERNÁRIO LOUCO)
+No painel da direita, debaixo de Estado (Backgrounds e text-color de CSS), vê-se a lógica pura.
+Este sistema muda as cores dependendo unicamente da String mandada pelos empregados da marca. Usa-se cadeias sucessivas curtas para isto tipo '?' ou ':'. Exemplo base:
+Se for 'entregue' ? Então é fundo verde claríssimo e letra rigorosa esverdeada fechada.
+MAs e se for 'cancelada' ? Puxa de tons fortes e tristes da panóplia encarnada.
+Isto avisa muito melhor o observador antes de ir a correr traduzir os textos mentalmente.
+
+4. SISTEMA DE PROTEÇÃO ANTI-CANCELAMENTO
+O ecrã oferece ainda numa pequena chance de rendição cá em baixo no "Cancelar Encomenda". Mas vem com "bloqueios parentais":
+Através da verificação estrita `<% if (['pendente', 'confirmada'].includes(order.status)) %>` a view do cliente só espetará e renderizará aquele maldoso formulário POST com o clique para cancelar caso a ordem resida exclusivamente nos estados virgens supracitados. Qualquer estado que cheire a despacho aduaneiro ou correio tira por magia o botão da view dele. Segurança a 100%.

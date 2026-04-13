@@ -23,15 +23,37 @@ async function seed() {
     console.log('Base de dados limpa.');
 
     const admin = await User.create({
-        name: 'Admin',
-        email: 'admin@supermarjethub.pt',
-        password: 'admin123',
+        name: 'Gabriel Moreira',
+        email: 'gabriel@paw.pt',
+        password: 'gaa123',
         phone: '900100100',
-        address: 'Sede SuperMarket Hub, Porto',
+        address: 'Rua dona Urraca mendes de bragança',
         role: 'admin',
         nif: ''
     });
     console.log('Admin criado:', admin.email);
+
+    const admin2 = await User.create({
+        name: 'David Alves',
+        email: 'david@paw.pt',
+        password: 'soufixe123',
+        phone: '91696969',
+        address: 'Rua do Ronaldo',
+        role: 'admin',
+        nif: ''
+    });
+    console.log('Admin criado:', admin2.email);
+
+    const admin3 = await User.create({
+        name: 'Samuel Cunha',
+        email: 'samuel@paw.pt',
+        password: 'soufixe321',
+        phone: '911000222',
+        address: 'Rua do Ronaldo 2',
+        role: 'admin',
+        nif: ''
+    });
+    console.log('Admin criado:', admin3.email);
 
     const superUser1 = await User.create({
         name: 'Josef Schwarz',
@@ -185,7 +207,9 @@ async function seed() {
 
     console.log('\n==== SEED CONCLUÍDO ===');
     console.log('Contas de teste:');
-    console.log('Admin: admin@supermarjethub.pt | admin123');
+    console.log('Admin 1: gabriel@paw.pt | gaa123');
+    console.log('Admin 2: david@paw.pt | soufixe123');
+    console.log('Admin 3: samuel@paw.pt | soufixe321');
     console.log('Cliente: maria@email.pt | 123456');
     console.log('Estafeta: carlos@email.pt | 123456');
     console.log('Supermercado Lidl: lidl@mercado.pt | lidl123');
