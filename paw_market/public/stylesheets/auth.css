@@ -122,7 +122,7 @@ body {
 
 /* Titulo SuperMarket Hub */
 .login-title {
-    font-size: 7.2rem;
+    font-size: 5.2rem;
     font-weight: 800;
     color: #0a1628;
     line-height: 1.1;
@@ -287,27 +287,35 @@ body {
     background-image: url('/images/Register.png');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    /* Anular o overflow:hidden do body para permitir scroll nesta página */
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 /* Registo */
 .register-card {
     width: 100%;
     max-width: 480px;
-    /* Um bocadinho mais largo para dar espaço para nomes duplos */
-    padding: 3.5rem 2.8rem;
+    /* Padding adaptável: mais compacto em portáteis */
+    padding: 2.5rem 2.2rem;
 
     /* background com gradient azul escuro */
     background: linear-gradient(160deg, #0a1628 0%, #173866 100%);
     border-radius: 24px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
 
-    /* Um pequeno ajuste no topo para ficar centrado */
-    margin-top: 2rem;
+    /* Margens para garantir que nunca fica colado ao topo/fundo */
+    margin: 1rem 0;
 }
 
 /* Como o fundo é escuro na imagem, as etiquetas (Nome/Email/Password) têm de ser brancas/cinza claro */
