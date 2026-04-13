@@ -74,7 +74,7 @@ exports.getProducts = async (req, res) => {
     }
 };
 
-// Buscar um produto específico por ID (API)
+// Buscar um produto específico por ID
 exports.getProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('category');
