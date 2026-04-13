@@ -52,7 +52,10 @@
                     <select name="category"
                         style="width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: white;">
                         <option value="">Todas</option>
+                        <!-- cat = categoria -->
+                        <!-- Basicamente vai procurar todas as categorias que existem na base de dados e vai criar uma opção para cada uma -->
                         <% categories.forEach(function(cat) { %>
+                            <!-- "selectedCategory===cat._id.toString() ? 'selected' : '' " serve para quando o utilizador pesquisar por uma categoria especifica , na caixa de seleção apareça a categoria que ele pesquisou e não "Todas" -->
                             <option value="<%= cat._id %>" <%=selectedCategory===cat._id.toString() ? 'selected' : '' %>
                                 ><%= cat.name %>
                             </option>
@@ -94,14 +97,13 @@
                     <% if (products.length===0) { %> <!-- Se nao houver produtos -->
                         <div style="text-align: center; padding: 60px 20px; color: #888;">
                             <p style="font-size: 18px;">Nenhum produto encontrado.</p>
-                            <p style="font-size: 14px; margin-top: 8px;">Tenta mudar os filtros de pesquisa.</p>
                         </div>
                         <% } else { %>
                             <div
                                 style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;">
                                 <% products.forEach(function(product) { %>
 
-                                    <!-- A transição quando o utilizador passa o mouse no produto, faz com que ele suba um pouco e a sombra aumente -->
+                                    <!-- A transição quando o utilizador passa o rato no produto, faz com que ele suba um pouco e a sombra aumente -->
                                     <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s;"
                                         onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'"
                                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'">
@@ -147,11 +149,12 @@
                                                 </span>
                                             </div>
 
-                                            <!-- Botões -->
+                                            <!-- Botões de adicionar ao carrinho e comparar -->
                                             <div style="display: flex; gap: 8px;">
                                                 <form method="POST" action="/cliente/cart/add" style="flex: 1;">
                                                     <input type="hidden" name="productId" value="<%= product._id %>">
                                                     <input type="hidden" name="quantity" value="1">
+                                                    <!-- Se o stock for 0, o botão fica desabilitado e muda de cor para cinzento -->
                                                     <button type="submit" <%=product.stock <=0 ? 'disabled' : '' %>
                                                         style="width: 100%; padding: 10px; background: <%=
                                                             product.stock> 0 ? '#1a237e' : '#ccc' %>; color: white;

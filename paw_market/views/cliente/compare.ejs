@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
@@ -32,62 +34,86 @@
     <div class="page-wrapper">
         <main class="main-container">
 
-            <a href="/cliente/products" style="color: #1a237e; text-decoration: none; font-size: 14px;">← Voltar aos Produtos</a>
+            <a href="/cliente/products" style="color: #1a237e; text-decoration: none; font-size: 14px;">← Voltar aos
+                Produtos</a>
 
             <h1 style="color: #1a237e; margin: 16px 0 8px 0;">Comparar Preços</h1>
-            <p style="color: #888; margin-bottom: 24px; font-size: 16px;">Produto: <strong style="color: #1f2937;"><%= productName %></strong></p>
+            <p style="color: #888; margin-bottom: 24px; font-size: 16px;">Produto: <strong style="color: #1f2937;">
+                    <%= productName %>
+                </strong></p>
 
-            <% if (products.length === 0) { %>
-            <div style="text-align: center; padding: 60px 20px; color: #888;">
-                <p style="font-size: 18px;">Nenhum supermercado encontrado com este produto.</p>
-            </div>
-            <% } else { %>
+            <% if (products.length===0) { %>
+                <div style="text-align: center; padding: 60px 20px; color: #888;">
+                    <p style="font-size: 18px;">Nenhum supermercado encontrado com este produto.</p>
+                </div>
+                <% } else { %>
 
-            <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #eee;">
-                            <th style="text-align: left; padding: 14px; color: #666; font-size: 13px;">Produto</th>
-                            <th style="text-align: left; padding: 14px; color: #666; font-size: 13px;">Supermercado</th>
-                            <th style="text-align: center; padding: 14px; color: #666; font-size: 13px;">Stock</th>
-                            <th style="text-align: right; padding: 14px; color: #666; font-size: 13px;">Preço</th>
-                            <th style="text-align: center; padding: 14px; color: #666; font-size: 13px;">Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% products.forEach(function(product, index) { %>
-                        <tr style="border-bottom: 1px solid #f0f0f0; background: <%= index === 0 ? '#f0fdf4' : 'transparent' %>;">
-                            <td style="padding: 14px;">
-                                <span style="font-weight: 600;"><%= product.name %></span>
-                                <% if (index === 0) { %>
-                                <span style="margin-left: 8px; padding: 2px 10px; background: #2e7d32; color: white; border-radius: 20px; font-size: 11px; font-weight: 700;">Melhor Preço</span>
-                                <% } %>
-                            </td>
-                            <td style="padding: 14px;"><%= product.supermarket ? product.supermarket.name : 'N/A' %></td>
-                            <td style="text-align: center; padding: 14px; color: <%= product.stock > 0 ? '#2e7d32' : '#c62828' %>;">
-                                <%= product.stock > 0 ? product.stock : 'Sem stock' %>
-                            </td>
-                            <td style="text-align: right; padding: 14px; font-size: 20px; font-weight: 800; color: #1a237e;"><%= product.price.toFixed(2) %> €</td>
-                            <td style="text-align: center; padding: 14px;">
-                                <form method="POST" action="/cliente/cart/add" style="display: inline;">
-                                    <input type="hidden" name="productId" value="<%= product._id %>">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" <%= product.stock <= 0 ? 'disabled' : '' %>
-                                        style="padding: 8px 20px; background: <%= product.stock > 0 ? '#1a237e' : '#ccc' %>; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: <%= product.stock > 0 ? 'pointer' : 'not-allowed' %>;">
-                                        Adicionar
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                    <div
+                        style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #eee;">
+                                    <th style="text-align: left; padding: 14px; color: #666; font-size: 13px;">Produto
+                                    </th>
+                                    <th style="text-align: left; padding: 14px; color: #666; font-size: 13px;">
+                                        Supermercado</th>
+                                    <th style="text-align: center; padding: 14px; color: #666; font-size: 13px;">Stock
+                                    </th>
+                                    <th style="text-align: right; padding: 14px; color: #666; font-size: 13px;">Preço
+                                    </th>
+                                    <th style="text-align: center; padding: 14px; color: #666; font-size: 13px;">Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% products.forEach(function(product, index) { %>
+                                    <tr
+                                        style="border-bottom: 1px solid #f0f0f0; background: <%= index === 0 ? '#f0fdf4' : 'transparent' %>;">
+                                        <td style="padding: 14px;">
+                                            <span style="font-weight: 600;">
+                                                <%= product.name %>
+                                            </span>
+                                            <% if (index===0) { %>
+                                                <span
+                                                    style="margin-left: 8px; padding: 2px 10px; background: #2e7d32; color: white; border-radius: 20px; font-size: 11px; font-weight: 700;">Melhor
+                                                    Preço</span>
+                                                <% } %>
+                                        </td>
+                                        <td style="padding: 14px;">
+                                            <%= product.supermarket ? product.supermarket.name : 'N/A' %>
+                                        </td>
+                                        <td
+                                            style="text-align: center; padding: 14px; color: <%= product.stock > 0 ? '#2e7d32' : '#c62828' %>;">
+                                            <%= product.stock> 0 ? product.stock : 'Sem stock' %>
+                                        </td>
+                                        <td
+                                            style="text-align: right; padding: 14px; font-size: 20px; font-weight: 800; color: #1a237e;">
+                                            <%= product.price.toFixed(2) %> €
+                                        </td>
+                                        <td style="text-align: center; padding: 14px;">
+                                            <form method="POST" action="/cliente/cart/add" style="display: inline;">
+                                                <input type="hidden" name="productId" value="<%= product._id %>">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" <%=product.stock <=0 ? 'disabled' : '' %>
+                                                    style="padding: 8px 20px; background: <%= product.stock> 0 ?
+                                                        '#1a237e' : '#ccc' %>; color: white; border: none;
+                                                        border-radius: 6px; font-size: 13px; font-weight: 600; cursor:
+                                                        <%= product.stock> 0 ? 'pointer' : 'not-allowed' %>;">
+                                                            Adicionar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <% } %>
+                    <% } %>
 
         </main>
     </div>
 
 </body>
+
 </html>

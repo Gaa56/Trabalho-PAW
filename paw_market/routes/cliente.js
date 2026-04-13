@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var clienteController = require('../controllers/clienteController');
 
-// Middleware: verificar se é cliente
+//Verificar se é cliente
 function isCliente(req, res, next) {
     if (!req.session.user || req.session.user.role !== 'cliente') {
         return res.redirect('/login');
