@@ -29,5 +29,6 @@ router.post('/pos', supermarketController.postPOS);
 router.get('/orders', supermarketController.getOrders);
 router.post('/orders/:id/confirm', supermarketController.confirmOrder);
 router.post('/orders/:id/prepare', supermarketController.prepareOrder);
+router.post('/orders/:id/deliver', supermarketController.deliverOrder);
 
 module.exports = router;

@@ -203,3 +203,17 @@ exports.prepareOrder = async (req, res) => {
         res.status(500).send("Erro ao atualizar encomenda.");
     }
 };
+
+// Marcar como entregue (Levantamento em loja)
+exports.deliverOrder = async (req, res) => {
+    try {
+        const Order = require('../models/Order');
+        await Order.findByIdAndUpdate(req.params.id, { 
+            status: 'entregue', 
+            deliveredAt: new Date() 
+        });
+        res.redirect('/supermarket/orders');
+    } catch (error) {
+        res.status(500).send("Erro ao concluir encomenda.");
+    }
+};
