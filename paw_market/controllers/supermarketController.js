@@ -6,7 +6,7 @@ const Order = require('../models/Order');
 exports.getDashboard = async (req, res) => {
     try {
         const superm = await Supermarket.findOne({ owner: req.session.user.id });
-        
+
         // Contar total de encomendas do supermercado
         const totalOrders = await Order.countDocuments({ supermarket: superm._id });
 
@@ -122,28 +122,22 @@ exports.postPOS = async (req, res) => {
     try {
         const superm = await Supermarket.findOne({ owner: req.session.user.id });
         const { clientNif, clientName, productId, quantity } = req.body;
-        
-        // 1. Procurar ou Criar o Cliente
+
+        // 1. Procurar ou criar o Cliente
         const User = require('../models/User');
-        let client = await User.findOne({ nif: clientNif, role: 'cliente' });
-        
-        if (!client) {
-            // Se não existe, cria um cliente temporário ou novo baseado nos dados
-            client = new User({
-                name: clientName || "Cliente Loja",
-                email: `cliente_${Date.now()}@loja.pt`, // Email placeholder porque o modelo exige
-                password: 'pos_password',
-                phone: '000000000',
-                nif: clientNif,
-                address: 'Compra em Loja',
-                role: 'cliente'
-            });
-            await client.save();
+        let client = null;
+
+        // Se NIF foi preenchido, procurar cliente existente
+        if (clientNif && clientNif.trim() !== '') {
+            client = await User.findOne({ nif: clientNif, role: 'cliente' });
+        } else {
+            // Se NIF vazio, usar "Consumidor final"
+            client = await User.findOne({ name: 'Consumidor final', role: 'cliente' });
         }
 
         // 2. Recuperar o produto e validar preço
         const product = await Product.findById(productId);
-        if(!product || product.stock < quantity) {
+        if (!product || product.stock < quantity) {
             return res.status(400).send("Produto não encontrado ou stock insuficiente.");
         }
 
@@ -156,7 +150,7 @@ exports.postPOS = async (req, res) => {
         const total = product.price * quantity;
 
         const newOrder = new Order({
-            customer: client._id,
+            customer: client ? client._id : null,
             supermarket: superm._id,
             items: [{
                 product: product._id,
@@ -168,6 +162,7 @@ exports.postPOS = async (req, res) => {
             deliveryMethod: 'pickup',
             status: 'entregue', // Entregue na hora
             type: 'pos',
+            clientNif: clientNif || '', // Guardar o NIF que foi inserido
             confirmedAt: Date.now(),
             deliveredAt: Date.now()
         });
@@ -221,9 +216,9 @@ exports.prepareOrder = async (req, res) => {
 exports.deliverOrder = async (req, res) => {
     try {
         const Order = require('../models/Order');
-        await Order.findByIdAndUpdate(req.params.id, { 
-            status: 'entregue', 
-            deliveredAt: new Date() 
+        await Order.findByIdAndUpdate(req.params.id, {
+            status: 'entregue',
+            deliveredAt: new Date()
         });
         res.redirect('/supermarket/orders');
     } catch (error) {

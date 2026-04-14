@@ -7,21 +7,116 @@
     <title>Ponto de Venda - Supermercado</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
     <style>
-        .pos-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        @media (max-width: 1200px) { .pos-container { grid-template-columns: 1fr; } }
-        .pos-section { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .product-item { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; }
-        .product-item:hover { background: #f0f7ff; border-color: #1a237e; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #333; font-weight: 600; font-size: 14px; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
-        .btn-add { background: #28a745; color: white; padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-add:hover { background: #218838; }
-        .btn-finalize { background: #1a237e; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 20px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f8f9fa; border-radius: 6px; margin-bottom: 10px; }
-        .cart-total { background: #1a237e; color: white; padding: 15px; border-radius: 6px; margin-top: 20px; text-align: right; }
-        .cart-total p { margin: 8px 0; }
-        .total-amount { font-size: 24px; font-weight: bold; }
+        .pos-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 1200px) {
+            .pos-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pos-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-item:hover {
+            background: #f0f7ff;
+            border-color: #1a237e;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .btn-add {
+            background: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #218838;
+        }
+
+        .btn-finalize {
+            background: #1a237e;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .cart-total {
+            background: #1a237e;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .cart-total p {
+            margin: 8px 0;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -65,16 +160,22 @@
                     <!-- Dados do Cliente -->
                     <div class="pos-section" style="margin-bottom: 20px;">
                         <h2 style="color: #1a237e; margin: 0 0 15px 0; font-size: 18px;">Dados do Cliente</h2>
+                        <p style="color: #666; font-size: 13px; margin: 0 0 15px 0;"><strong>Nota:</strong> Deixe os
+                            campos vazios para registar como Consumidor Final</p>
 
                         <form id="posForm">
                             <div class="form-group">
-                                <label>NIF do Cliente</label>
-                                <input type="text" id="clientNif" name="clientNif" placeholder="9 dígitos">
+                                <label>NIF do Cliente <span
+                                        style="color: #999; font-weight: 400;">(opcional)</span></label>
+                                <input type="text" id="clientNif" name="clientNif"
+                                    placeholder="Deixe em branco = Consumidor Final">
                             </div>
 
                             <div class="form-group">
-                                <label>Nome do Cliente</label>
-                                <input type="text" id="clientName" name="clientName" placeholder="Consumidor final">
+                                <label>Nome do Cliente <span
+                                        style="color: #999; font-weight: 400;">(opcional)</span></label>
+                                <input type="text" id="clientName" name="clientName"
+                                    placeholder="Deixe em branco = Consumidor Final">
                             </div>
 
                             <h2 style="color: #1a237e; margin: 25px 0 15px 0; font-size: 18px;">Adicionar Produtos</h2>
@@ -83,13 +184,15 @@
                                 <label>Selecione um Produto</label>
                                 <select id="productSelect" name="productId">
                                     <option value="">-- Selecione um produto --</option>
-                                    <% if (products && products.length > 0) { %>
+                                    <% if (products && products.length> 0) { %>
                                         <% products.forEach(function(product) { %>
-                                            <option value="<%= product._id %>" data-price="<%= product.price %>" data-stock="<%= product.stock %>">
-                                                <%= product.name %> - <%= product.price.toFixed(2) %>€ (Stock: <%= product.stock %>)
+                                            <option value="<%= product._id %>" data-price="<%= product.price %>"
+                                                data-stock="<%= product.stock %>">
+                                                <%= product.name %> - <%= product.price.toFixed(2) %>€ (Stock: <%=
+                                                            product.stock %>)
                                             </option>
-                                        <% }) %>
-                                    <% } %>
+                                            <% }) %>
+                                                <% } %>
                                 </select>
                             </div>
 
@@ -117,11 +220,14 @@
                         <div class="cart-total" id="cartTotal" style="display: none;">
                             <p style="margin: 0;">Subtotal:</p>
                             <p id="subtotal" style="margin: 0; font-size: 18px;">0.00€</p>
-                            <p style="margin: 0; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px;">Total:</p>
+                            <p
+                                style="margin: 0; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px;">
+                                Total:</p>
                             <p class="total-amount" id="totalAmount" style="margin: 0;">0.00€</p>
                         </div>
 
-                        <button class="btn-finalize" onclick="finalizeSale()" id="finalizeBtn" style="display: none;">Finalizar Venda</button>
+                        <button class="btn-finalize" onclick="finalizeSale()" id="finalizeBtn"
+                            style="display: none;">Finalizar Venda</button>
                     </div>
                 </div>
 

@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
     customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        default: null
     },
     supermarket: {
         type: mongoose.Schema.Types.ObjectId,
@@ -67,6 +67,10 @@ const orderSchema = new mongoose.Schema({
         default: null
     },
     notes: {
+        type: String,
+        default: ''
+    },
+    clientNif: {
         type: String,
         default: ''
     },
